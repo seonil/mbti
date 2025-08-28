@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네 폰은 정해졌다</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .question-card {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            padding: 1.5rem;
+        }
+        .question-card.active {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+        }
+        .hidden-until-active {
+            display: none;
+        }
+        .active .hidden-until-active {
+            display: flex;
+        }
+        .choice-btn {
+            transition: all 0.2s ease;
+        }
+        .choice-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .choice-btn:active {
+            transform: scale(0.98);
+        }
+        .loader {
+            border: 8px solid #e5e7eb; /* gray-200 */
+            border-top: 8px solid #374151; /* gray-700 */
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-stone-100 text-gray-800 flex items-center justify-center min-h-screen p-4 overflow-hidden">
+
+    <div id="app-container" class="w-full max-w-2xl mx-auto text-center">
+
+        <!-- 시작 화면 -->
+        <div id="q0" class="question-card active">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-stone-800">네 폰은 정해졌다</h1>
+            <p class="text-lg md:text-xl mb-8 text-stone-600">더욱 교묘하고, 더욱 깊숙하게. <br>이제 당신의 무의식마저 속일 수 없을 것이다.</p>
+            <button onclick="nextQuestion(0)" class="bg-stone-800 hover:bg-stone-900 text-white font-bold py-3 px-8 rounded-lg text-2xl shadow-lg choice-btn">덤벼보시지</button>
+        </div>
+
+        <!-- 질문 1 -->
+        <div id="q1" class="question-card hidden-until-active">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-stone-800">Q1. 레고 한 박스</h2>
+            <p class="text-md md:text-lg mb-6 text-stone-600">당신 손에 레고 한 박스가 쥐어졌다. 당신의 선택은?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <div onclick="selectAnswer(1, 'iphone', true)" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">설명서는 진리다</h3>
+                    <p class="text-stone-500">한치의 오차도 없이 완벽한 우주선을 조립하고 희열을 느낀다.</p>
+                </div>
+                <div onclick="selectAnswer(1, 'android', false)" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">설명서는 거들 뿐</h3>
+                    <p class="text-stone-500">바퀴 달린 비행기, 날개 달린 자동차 등 나만의 창조물을 만든다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 질문 2 -->
+        <div id="q2" class="question-card hidden-until-active">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-stone-800">Q2. 마법의 리모컨</h2>
+            <p class="text-md md:text-lg mb-6 text-stone-600">방 안의 모든 것을 바꿀 수 있다! 당신의 통제 욕구 레벨은?</p>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <div onclick="selectAnswer(2, 'iphone')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">"누가 좀..."</h3>
+                    <p class="text-stone-500">가장 예쁜 추천 테마 1, 2, 3 중에 하나를 고르고 만족한다.</p>
+                </div>
+                <div onclick="selectAnswer(2, 'android')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">"내가 직접!"</h3>
+                    <p class="text-stone-500">벽지 색 RGB값, 창문 비율, 조명 온도까지 직접 미세 조정한다.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 질문 3 (수정됨) -->
+        <div id="q3" class="question-card hidden-until-active">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-stone-800">Q3. 주말의 장보기</h2>
+            <p class="text-md md:text-lg mb-6 text-stone-600">당신의 장보기 스타일은 다음 중 어디에 더 가까운가?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <div onclick="selectAnswer(3, 'android')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">대형 창고형 마트</h3>
+                    <p class="text-stone-500">모호한 리스트로 시작, 구석구석 탐험하며 예상 못한 상품을 발견하는 재미.</p>
+                </div>
+                <div onclick="selectAnswer(3, 'iphone')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">단골 마트 배달 앱</h3>
+                    <p class="text-stone-500">'늘 사던 것' 목록을 탭. 1시간 뒤 문 앞에 도착하는 빠르고 정확한 편리함.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 질문 4 -->
+        <div id="q4" class="question-card hidden-until-active">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-stone-800">Q4. 인류 마지막 파티</h2>
+            <p class="text-md md:text-lg mb-6 text-stone-600">지구가 곧 멸망한다. 마지막 파티가 열린다. 어디로 향하겠는가?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <div onclick="selectAnswer(4, 'iphone')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">시크릿 가든 파티</h3>
+                    <p class="text-stone-500">드레스코드 필수. 아는 사람들끼리 은밀하고 품격있게 즐기는 우리만의 리그.</p>
+                </div>
+                <div onclick="selectAnswer(4, 'android')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">카오스 좀비 페스티벌</h3>
+                    <p class="text-stone-500">누구나 입장 가능. 새로운 사람들과 뒤엉켜 세상을 불태우는 모두의 축제.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 질문 5 (수정됨) -->
+        <div id="q5" class="question-card hidden-until-active">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-stone-800">Q5. 친구들과의 보드게임</h2>
+            <p class="text-md md:text-lg mb-6 text-stone-600">오늘 밤, 친구들과 보드게임을 하려 한다. 어떤 게임에 더 끌리는가?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <div onclick="selectAnswer(5, 'android')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">두꺼운 설명서는 환영!</h3>
+                    <p class="text-stone-500">규칙은 복잡하지만, 한번 배우면 몇 시간이고 빠져드는 전략 게임.</p>
+                </div>
+                <div onclick="selectAnswer(5, 'iphone')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">30초 설명이면 끝!</h3>
+                    <p class="text-stone-500">처음 하는 사람도 바로 즐길 수 있는 간단한 규칙의 파티 게임.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 질문 6 -->
+        <div id="q6" class="question-card hidden-until-active">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-stone-800">Q6. 배고픈 하이에나</h2>
+            <p class="text-md md:text-lg mb-6 text-stone-600">일주일 굶주린 당신 앞. 본능은 무엇을 선택하는가?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <div onclick="selectAnswer(6, 'iphone')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">궁극의 오마카세</h3>
+                    <p class="text-stone-500">한 입의 예술, 평생의 기억.</p>
+                </div>
+                <div onclick="selectAnswer(6, 'android')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">괴물 버거</h3>
+                    <p class="text-stone-500">위장의 포효, 우주까지 포만감.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 질문 7 -->
+        <div id="q7" class="question-card hidden-until-active">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-stone-800">Q7. 컴퓨터 바탕화면</h2>
+            <p class="text-md md:text-lg mb-6 text-stone-600">당신의 컴퓨터 바탕화면은 어떤 상태에 가까운가?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <div onclick="selectAnswer(7, 'android')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">영광의 혼돈</h3>
+                    <p class="text-stone-500">파일, 폴더, 바로가기, 위젯이 뒤섞여 나만이 알아볼 수 있는 질서를 이룬다.</p>
+                </div>
+                <div onclick="selectAnswer(7, 'iphone')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">정갈한 무(無)</h3>
+                    <p class="text-stone-500">아름다운 배경화면과 하단의 필수 아이콘 몇 개가 전부다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 질문 8 -->
+        <div id="q8" class="question-card hidden-until-active">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-stone-800">Q8. 여행사 사장님</h2>
+            <p class="text-md md:text-lg mb-6 text-stone-600">어떤 상품을 주력으로 팔겠는가?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <div onclick="selectAnswer(8, 'iphone')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">"몸만 오세요" 풀 패키지</h3>
+                    <p class="text-stone-500">5성급 호텔, 전용 리무진, 검증된 맛집. 돌발상황 0% 도전!</p>
+                </div>
+                <div onclick="selectAnswer(8, 'android')" class="bg-white p-6 rounded-xl border-2 border-transparent hover:border-stone-400 cursor-pointer choice-btn shadow-md">
+                    <h3 class="text-2xl font-bold text-stone-700 mb-2">"살아 돌아오세요" 오지 탐험</h3>
+                    <p class="text-stone-500">항공권과 정글도 하나. 모든 것은 당신의 몫. 진짜 모험!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 분석 화면 -->
+        <div id="analysis" class="question-card hidden-until-active">
+            <h2 class="text-3xl font-bold mb-6 text-stone-800">영혼 데이터 분석 중...</h2>
+            <div class="loader"></div>
+            <p class="mt-6 text-lg text-stone-600">당신의 무의식, 생활 패턴, 숨겨진 욕망을<br>단 하나의 결론으로 엮어내는 중...</p>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div id="result" class="question-card hidden-until-active">
+            <h1 id="result-device" class="text-8xl md:text-9xl font-black text-stone-900 mb-8"></h1>
+            <p class="text-2xl md:text-3xl font-bold text-stone-700">이것이 너의 운명.</p>
+            <p class="text-2xl md:text-3xl font-bold text-stone-700 mb-10">반박은 불허한다.</p>
+            <a id="result-link" href="#" target="_blank" class="bg-stone-800 hover:bg-stone-900 text-white font-bold py-3 px-8 rounded-lg text-xl shadow-lg choice-btn">운명 확인하기</a>
+        </div>
+    </div>
+
+    <!-- 오디오 파일 소스를 신뢰할 수 있는 것으로 변경 -->
+    <audio id="audio-click" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/ui_pack_click_c_02.wav" preload="auto"></audio>
+    <audio id="audio-assemble" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/ui_pack_confirm_c_01.wav" preload="auto"></audio>
+    <audio id="audio-crash" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/ui_pack_error_c_02.wav" preload="auto"></audio>
+    <audio id="audio-finish" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/ui_pack_unlock_c_01.wav" preload="auto"></audio>
+
+    <script>
+        // --- 상태 관리 ---
+        let currentQuestion = 0;
+        const totalQuestions = 8;
+        const userChoices = { iphone: 0, android: 0 };
+
+        // --- 사운드 효과 ---
+        const audioClick = document.getElementById('audio-click');
+        const audioAssemble = document.getElementById('audio-assemble');
+        const audioCrash = document.getElementById('audio-crash');
+        const audioFinish = document.getElementById('audio-finish');
+        
+        // --- 화면 전환 ---
+        function nextQuestion(questionNumber) {
+            const currentCard = document.getElementById(`q${questionNumber}`);
+            let nextCardId = (questionNumber < totalQuestions) ? `q${questionNumber + 1}` : 'analysis';
+            const nextCard = document.getElementById(nextCardId);
+            
+            audioClick.currentTime = 0;
+            audioClick.play().catch(e => console.log("Audio play failed:", e));
+
+            if (currentCard) {
+                currentCard.classList.remove('active');
+                setTimeout(() => currentCard.classList.add('hidden-until-active'), 500);
+            }
+            if (nextCard) {
+                nextCard.classList.remove('hidden-until-active');
+                setTimeout(() => nextCard.classList.add('active'), 100);
+            }
+            currentQuestion++;
+        }
+
+        // --- 답변 선택 ---
+        function selectAnswer(questionNum, choice, playSound = null) {
+            userChoices[choice]++;
+            
+            if (playSound === true) {
+                audioAssemble.currentTime = 0;
+                audioAssemble.play().catch(e => console.log("Audio play failed:", e));
+            } else if (playSound === false) {
+                audioCrash.currentTime = 0;
+                audioCrash.play().catch(e => console.log("Audio play failed:", e));
+            }
+
+            if (questionNum === totalQuestions) {
+                showAnalysis();
+            } else {
+                nextQuestion(questionNum);
+            }
+        }
+        
+        // --- 분석 및 결과 표시 ---
+        function showAnalysis() {
+            const currentCard = document.getElementById(`q${totalQuestions}`);
+            if(currentCard) {
+                currentCard.classList.remove('active');
+                setTimeout(() => currentCard.classList.add('hidden-until-active'), 500);
+            }
+
+            const analysisCard = document.getElementById('analysis');
+            analysisCard.classList.remove('hidden-until-active');
+            setTimeout(() => analysisCard.classList.add('active'), 100);
+
+            setTimeout(calculateResult, 3000);
+        }
+        
+        function calculateResult() {
+            const finalDevice = userChoices.iphone > userChoices.android ? '아이폰' : '안드로이드';
+            
+            const resultCard = document.getElementById('result');
+            const resultDeviceEl = document.getElementById('result-device');
+            const resultLinkEl = document.getElementById('result-link');
+            
+            resultDeviceEl.textContent = finalDevice;
+            
+            if (finalDevice === '아이폰') {
+                resultLinkEl.href = "https://www.apple.com/kr/iphone/";
+            } else {
+                resultLinkEl.href = "https://www.samsung.com/sec/smartphones/galaxy-s/";
+            }
+            
+            audioFinish.play().catch(e => console.log("Audio play failed:", e));
+            
+            document.getElementById('analysis').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('analysis').classList.add('hidden-until-active');
+                resultCard.classList.remove('hidden-until-active');
+                setTimeout(() => resultCard.classList.add('active'), 100);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
