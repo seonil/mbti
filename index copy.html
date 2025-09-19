@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI 심심풀이 땅콩</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .mbti-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .mbti-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .mbti-btn.selected {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-600 mb-2">MBTI 심심풀이 땅콩🥜</h1>
+            <p class="text-lg text-gray-600">팀원들과 모아본 재미로 보는 MBTI 분석!</p>
+            <p class="text-md text-gray-500 mt-2">자신의 MBTI를 선택해보세요.</p>
+        </header>
+
+        <!-- MBTI Selector -->
+        <div id="mbtiSelector" class="grid grid-cols-4 md:grid-cols-8 gap-2 md:gap-4 mb-8">
+            <!-- Buttons will be injected by JS -->
+        </div>
+        
+        <!-- Results Area -->
+        <div id="resultsArea">
+            <div class="text-center py-16 bg-white rounded-2xl shadow-lg">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 class="mt-2 text-xl font-medium text-gray-900">MBTI를 선택해주세요</h3>
+                <p class="mt-1 text-md text-gray-500">선택하면 여기에 재미있는 분석 결과가 나타납니다!</p>
+            </div>
+        </div>
+
+        <!-- General Info Section -->
+        <div class="mt-12">
+            <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">회의 조합 꿀팁 & MBTI 상식 🧐</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Best Meeting Combos -->
+                <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="font-bold text-xl mb-4 text-green-600">최고의 회의 조합 TOP 3 ✅</h3>
+                    <ul class="space-y-4">
+                        <li class="p-3 bg-green-50 rounded-lg">
+                            <p class="font-semibold">1️⃣ ENTJ + INTJ + ISFJ + ENFP</p>
+                            <p class="text-sm text-gray-600">비전, 현실, 조율, 추진력까지 완벽한 드림팀</p>
+                        </li>
+                        <li class="p-3 bg-green-50 rounded-lg">
+                            <p class="font-semibold">2️⃣ ESTJ + INTP + ESFJ + ISTP</p>
+                            <p class="text-sm text-gray-600">현실, 합리, 감성, 해결력이 조화로운 실무 끝판왕</p>
+                        </li>
+                        <li class="p-3 bg-green-50 rounded-lg">
+                            <p class="font-semibold">3️⃣ ENFJ + INFJ + ESTP + ISFP</p>
+                            <p class="text-sm text-gray-600">비전, 실행, 설득, 감성 디테일의 마케팅 최강 조합</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Worst Meeting Combos -->
+                <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="font-bold text-xl mb-4 text-red-600">최악의 회의 조합 TOP 3 ❌</h3>
+                    <ul class="space-y-4">
+                        <li class="p-3 bg-red-50 rounded-lg">
+                            <p class="font-semibold">1️⃣ INFP + ENFP + INTP + ISFP</p>
+                            <p class="text-sm text-gray-600">아이디어만 뿜뿜! 결정은 회피, 의미있는 얘기만 하다 끝남</p>
+                        </li>
+                        <li class="p-3 bg-red-50 rounded-lg">
+                            <p class="font-semibold">2️⃣ ENTP + ENTP + ENFP + INTP</p>
+                            <p class="text-sm text-gray-600">토론은 활발, 결론은 없음. 아이디어 300개, 결정 0개</p>
+                        </li>
+                         <li class="p-3 bg-red-50 rounded-lg">
+                            <p class="font-semibold">3️⃣ ISTJ + ESTJ + INTJ + ISTP</p>
+                            <p class="text-sm text-gray-600">"그건 아니지" 무한반복. 감성 제로, 타협 없는 정면충돌</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+// --- 데이터베이스 ---
+// 사용자로부터 받은 모든 MBTI 관련 데이터를 여기에 정리했습니다.
+const mbtiData = {
+    // 분석가형
+    'INTJ': {
+        color: 'purple',
+        nickname: '전략가',
+        adaptation: { rank: 13, summary: '전략적 사고 탁월, 비효율 싫어함, 감정 표현 약함' },
+        performance: { rank: 3, summary: '장기적 계획 수립 능력, 효율과 혁신 추구' },
+        desktop: { rank: 5, summary: '전략적으로 최소한만 배치함' },
+        punctuality: { rank: 5, summary: '시간 관리 탁월, 예외 거의 없음' },
+        slacking: { rank: 11, summary: '효율 떨어지는 일엔 관심 없음. 안 할 땐 안 함' },
+        speed: { rank: 4, summary: '계획 후 바로 실행. 군더더기 없음' },
+        friendliness: { rank: 14, summary: '혼자 일하는 걸 선호, 감정 표현 적음' },
+        factCheck: '비효율 보면 참기 힘들지. 근데 다들 그냥 그렇게 해.',
+        meetingKeywords: '"전략적으로 봤을 때", "시나리오 A/B", "장기적 관점에서", "결국 구조적인 문제"',
+        imagination: { rank: 13, summary: '전략적이고 혁신적인 상상력, 새로운 방식의 문제 해결을 선호' },
+        strength: '전략적 사고, 효율성, 혁신적 아이디어',
+        role: 'CEO, 전략 기획, 연구 개발, 데이터 분석가',
+        strongTrait: '전략적 사고와 목표 지향적 추진력',
+        functionAnalysis: { i: '매우 I', n: '매우 N', t: 'F적 T', j: '매우 J', summary: '논리적이지만 감정 이해력도 있는 전략가' },
+        convenienceStore: { title: '미니멀 효율충', goal: '가장 효율적인 영양 공급', action: '카테고리별로 최적 조합 빠르게 선택', choice: '닭가슴살 도시락 + 무가당 두유', detail: '“내일 먹을 거까지 사둘까” 계산적 판단 후 철수' }
+    },
+    'INTP': {
+        color: 'purple',
+        nickname: '논리술사',
+        adaptation: { rank: 14, summary: '분석력 뛰어남, 권위에 저항, 감정 소통 약함' },
+        performance: { rank: 7, summary: '복잡한 문제 분석, 시스템 개선 능력' },
+        desktop: { rank: 13, summary: '귀찮음 우선. 아이콘 수십 개 방치 가능' },
+        punctuality: { rank: 13, summary: '밤낮 바뀌기 쉬움, 시간 개념 약할 수 있음' },
+        slacking: { rank: 2, summary: '머릿속 생각이 너무 많음. 일하다가 위키백과 빠짐' },
+        speed: { rank: 13, summary: '분석에 오래 걸림. 실행은 느림' },
+        friendliness: { rank: 15, summary: '관계 유지보단 아이디어에 집중. 공감보단 논리 우선' },
+        factCheck: '기획은 기가 막히게 해. 근데 마무리는 왜 남한테 넘기냐.',
+        meetingKeywords: '"논리적으로 보면", "이건 개념적으로 정리 필요", "케이스별로 다를 수 있죠"',
+        imagination: { rank: 4, summary: '이론적이고 추상적인 상상력, 논리적 시스템 및 이론을 탐구' },
+        strength: '논리적 사고, 독립성, 추상적 사고',
+        role: '연구개발, 기술 혁신, 분석가, 시스템 설계자',
+        strongTrait: '깊은 사고력과 창의적 개념 설계 능력',
+        functionAnalysis: { i: '매우 I', n: 'N', t: '매우 T', p: 'P', summary: '가장 내향적이고 논리적인 ‘사고형 사색가’' },
+        convenienceStore: { title: '신상 탐험가', goal: '‘새로 나온 거’ 체험', action: '신상품 표시만 보고 다 골라옴', choice: '신제품 라면 + 처음 보는 음료수 + 마이너한 과자', detail: '구성도 조합도 다 실험적인데 본인은 만족' }
+    },
+    'ENTJ': {
+        color: 'purple',
+        nickname: '지도자',
+        adaptation: { rank: 3, summary: '목표 지향, 리더십 있음, 전략적 사고 가능' },
+        performance: { rank: 1, summary: '전략적 사고, 추진력 강함, 목표 설정 후 실행 능력 탁월' },
+        desktop: { rank: 7, summary: '성과 중심으로 효율적 정리' },
+        punctuality: { rank: 7, summary: '목적 있으면 정확히 맞춤' },
+        slacking: { rank: 15, summary: '성과 안 나오는 시간 낭비 싫어함' },
+        speed: { rank: 1, summary: '일단 시작하고 결과 뽑음. 결단력 최상' },
+        friendliness: { rank: 5, summary: '리더십 강하고 추진력 있음. 처음엔 거리감 있지만 신뢰 빠르게 형성' },
+        factCheck: '성과는 내지. 근데 사람 진 빠지게 하는 거 알아?',
+        meetingKeywords: '"우리가 주도해야죠", "타임라인 짜야겠네요", "결정은 제가 할게요"',
+        imagination: { rank: 6, summary: '강력한 리더십을 발휘하며, 팀을 이끌고 큰 목표를 달성' },
+        strength: '리더십, 결단력, 전략적 사고',
+        role: 'CEO, 고위 경영진, 비즈니스 개발, 전략 기획',
+        strongTrait: '큰 그림과 구조 설계에 능한 강력한 추진력 보유',
+        functionAnalysis: { e: '매우 E', n: '매우 N', t: '매우 T', j: '매우 J', summary: '강한 리더십과 전략 실행력' },
+        convenienceStore: { title: '리더형 야식 루틴러', goal: '정해진 루틴에 따라 움직임', action: '늘 먹는 메뉴만 고름', choice: '단백질 바 + 커피 + 탄산수', detail: '“이 시간에 먹으면 내일 일정에 영향 없겠지”' }
+    },
+    'ENTP': {
+        color: 'purple',
+        nickname: '토론가',
+        adaptation: { rank: 15, summary: '변화 추구, 아이디어 많음, 규율에 약함' },
+        performance: { rank: 6, summary: '창의력, 문제 해결력 강함, 새로운 아이디어 추진 가능' },
+        desktop: { rank: 15, summary: '정리보단 찾는 게 빠름. 정리 거의 안 함' },
+        punctuality: { rank: 15, summary: '유동적인 생활 선호, 제 시간 못 맞출 수 있음' },
+        slacking: { rank: 3, summary: '하다 말고 아이디어 떠올라 딴 거 시작함' },
+        speed: { rank: 12, summary: '아이디어 많지만 마무리는 늦을 수 있음' },
+        friendliness: { rank: 9, summary: '재치 있고 대화 잘함. 다만 가볍게 느껴질 수 있음' },
+        factCheck: '넌 뭐든 되게 재밌게 만들어. 근데 뒷일은 누가 처리하냐고.',
+        meetingKeywords: '"다르게 접근해보면", "논리적 허점이 있는데요", "역발상으로 가면 어때요?"',
+        imagination: { rank: 3, summary: '논리적이고 분석적인 상상력, 아이디어 생성과 문제 해결에 뛰어남' },
+        strength: '문제 해결 능력, 아이디어 생성, 적응력',
+        role: '제품 개발, 마케팅, 기업 혁신 담당, 브레인스토밍 리더',
+        strongTrait: '말과 아이디어로 세상과 싸우는 창의적 도전가',
+        functionAnalysis: { e: '매우 E', n: '매우 N', t: 'F적 T', p: '매우 P', summary: '열정적이고 창의적인 아이디어형 설득가' },
+        convenienceStore: { title: '먹으면서 실험', goal: '이 조합은 과연 성공할 것인가', action: '이상한 음식 조합 시도함', choice: '볶음밥 + 꿀물 + 치즈토핑 추가', detail: '맛있으면 친구한테 추천하고, 별로면 “이건 망했다ㅋ”' }
+    },
+
+    // 외교관형
+    'INFJ': {
+        color: 'green',
+        nickname: '옹호자',
+        adaptation: { rank: 12, summary: '통찰력 있음, 인간관계에 섬세, 불합리에 예민함' },
+        performance: { rank: 8, summary: '깊이 있는 통찰, 사람 중심 전략 제안 가능' },
+        desktop: { rank: 6, summary: '감성적 정돈 + 시스템적 구조' },
+        punctuality: { rank: 6, summary: '조용히 자기 규칙 지키는 타입' },
+        slacking: { rank: 8, summary: '겉으론 일하는 척, 속으론 자기 세계 감' },
+        speed: { rank: 14, summary: '내면 갈등 많으면 속도 느려짐' },
+        friendliness: { rank: 10, summary: '진중하고 깊이 있는 소통 가능. 처음엔 낯가림 있음' },
+        factCheck: '네 기준엔 다 의미가 있어야 되지. 근데 회사는 그거 안 따져.',
+        meetingKeywords: '"이건 장기적으로 어떤 의미가 있을까요?", "본질적인 방향성은...", "핵심 가치는"',
+        imagination: { rank: 6, summary: '심오하고 영적인 상상력, 미래 예측과 인간 내면의 이해' },
+        strength: '통찰력, 사람 중심, 이상주의',
+        role: 'HR, 상담, 교육, 혁신적인 프로젝트 관리',
+        strongTrait: '통찰력 있는 조언자, 깊이 있는 인간 이해',
+        functionAnalysis: { i: '매우 I', n: '매우 N', f: 'T적 F', j: '매우 J', summary: '통찰력 있고 구조적이며 조화 지향적' },
+        convenienceStore: { title: '감성 1순위', goal: '오늘의 기분을 달래줄 먹거리', action: '과자 코너 앞에서 한참 고민', choice: '감성 패키지의 허니버터칩 + 아이스티 + 쁘띠첼 푸딩', detail: '계산하면서 ‘내가 왜 이걸로 위로받고 있지’ 생각' }
+    },
+    'INFP': {
+        color: 'green',
+        nickname: '중재자',
+        adaptation: { rank: 8, summary: '의미 있는 일에 몰입, 감성적 공감 능력 있음' },
+        performance: { rank: 13, summary: '의미 있는 일에서 몰입력 높음, 창의성 있음' },
+        desktop: { rank: 14, summary: '‘감성’ 정리. 폴더 이름도 감정 표현일 수 있음' },
+        punctuality: { rank: 14, summary: '기분 따라 출근. 늦게 오는 날도 많음' },
+        slacking: { rank: 4, summary: '감정 흔들리면 일에 몰입 안 됨. 멍~ 자주 함' },
+        speed: { rank: 15, summary: '집중할 땐 빠르지만 기복 심함' },
+        friendliness: { rank: 13, summary: '감성적이고 진심 있는 스타일, 다만 낯가림 심함' },
+        factCheck: '의미 없는 일 하면 영혼 빠지지. 근데 의미 있는 일만 주진 않아.',
+        meetingKeywords: '"우리 진짜 이걸 왜 하는 걸까요?", "진정성 있는 메시지가 필요해요", "가슴에 와닿아야"',
+        imagination: { rank: 2, summary: '감성적이고 이상주의적인 상상력, 인간적 가치와 깊은 연결을 중요시' },
+        strength: '창의적 사고, 감성적 이해, 이상적인 비전',
+        role: '창의적인 직무, 예술, 마케팅, 콘텐츠 제작',
+        strongTrait: '의미와 가치 추구, 이상에 충실한 내면적 진정성',
+        functionAnalysis: { i: '매우 I', n: '매우 N', f: '매우 F', p: 'P', summary: '내면 가치에 충실한 감정형 이상주의자' },
+        convenienceStore: { title: '한 입의 위로를 찾아서', goal: '오늘도 나를 위로할 음식', action: '과자 코너에서 멍 때리다가 갑자기 방향 틀음', choice: '크림우유 + 감자칩 + 젤리', detail: '“내일 후회할 수도 있는데… 일단 먹자”' }
+    },
+    'ENFJ': {
+        color: 'green',
+        nickname: '선도자',
+        adaptation: { rank: 5, summary: '감정 배려, 소통 능력 뛰어남, 리더십 있음' },
+        performance: { rank: 4, summary: '팀 이끌고 관계 조율 잘함, 감정과 성과 균형감 있음' },
+        desktop: { rank: 8, summary: '가끔 흐트러지지만 다시 정리하는 스타일' },
+        punctuality: { rank: 8, summary: '약속 잘 지키려 노력함' },
+        slacking: { rank: 10, summary: '감정 기복 있으면 잠깐 딴 데 신경 쓰기도 함' },
+        speed: { rank: 7, summary: '팀 중심이지만 일 잘함. 속도도 적당히 빠름' },
+        friendliness: { rank: 3, summary: '배려심 깊고 사람 중심, 갈등도 잘 조율함' },
+        factCheck: '팀 다 챙기느라 정작 너 자신은 소모되고 있어.',
+        meetingKeywords: '"다들 공감할 수 있도록", "조직적으로 연결되게끔", "이건 영향력이 클 것 같아요"',
+        imagination: { rank: 5, summary: '사회적 혁신과 인간 관계에 대한 깊은 상상력, 카리스마적인 성격' },
+        strength: '리더십, 사람 이해, 열정적',
+        role: '팀 리더, 관리직, HR, 교육',
+        strongTrait: '사람을 이끄는 카리스마, 공감 기반 리더십',
+        functionAnalysis: { e: '매우 E', n: 'N', f: '매우 F', j: '매우 J', summary: '조직적인 공감 리더, 영향력 중심' },
+        convenienceStore: { title: '분위기까지 계산하는 사람', goal: '나만이 아니라 분위기도 챙김', action: '“이건 조합이 좋아야지”', choice: '샌드위치 + 카페라떼 + 디저트', detail: '돌아가는 길에 누군가 줄 것처럼 여분 챙김' }
+    },
+    'ENFP': {
+        color: 'green',
+        nickname: '활동가',
+        adaptation: { rank: 9, summary: '창의적, 에너지 넘침, 유연한 환경에서 강점' },
+        performance: { rank: 15, summary: '에너지 많고 창의적이지만 집중력과 일관성 부족할 수 있음' },
+        desktop: { rank: 16, summary: '바탕화면이 곧 창작물. 혼돈 속 질서 주장' },
+        punctuality: { rank: 16, summary: '“지각? 근데 나 어제 밤에 기획했잖아” 스타일' },
+        slacking: { rank: 1, summary: '집중 짧고 자극에 잘 끌림. 생각하다가 유튜브 감' },
+        speed: { rank: 16, summary: '시작은 빠르지만 산만해서 마무리 느림' },
+        friendliness: { rank: 2, summary: '활달하고 따뜻함, 누구와도 금방 친해짐' },
+        factCheck: '시작은 불꽃처럼 해. 근데 마무리는… 늘 내일로 미뤄지지.',
+        meetingKeywords: '"아이디어 하나 던져볼게요", "좀 엉뚱할 수도 있는데요", "이게 우리만의 무기!"',
+        imagination: { rank: 1, summary: '매우 창의적이고 자유로운 상상력, 혁신적이고 아이디어가 넘치는 성격' },
+        strength: '창의성, 사람 중심, 열정',
+        role: '마케팅, 인사, 콘텐츠 기획, 고객 서비스',
+        strongTrait: '열정적이며 아이디어 넘치는 변화 추구자',
+        functionAnalysis: { e: '매우 E', n: '매우 N', f: '매우 F', p: '매우 P', summary: '사람 중심, 에너지 넘치는 공감형 탐험가' },
+        convenienceStore: { title: '감정적 폭주 소비자', goal: '그냥 이 순간이 행복했으면', action: '“어머 이것도 나왔네?” 하며 바구니 채움', choice: '컵라면 + 크림빵 + 탄산음료 + 아이스크림', detail: '나중에 앉아서 “아 이거 너무 많이 샀다”' }
+    },
+
+    // 관리자형
+    'ISTJ': {
+        color: 'blue',
+        nickname: '현실주의자',
+        adaptation: { rank: 4, summary: '꼼꼼하고 성실, 절차 따름, 상사 신뢰 높음' },
+        performance: { rank: 5, summary: '꼼꼼함과 안정적 실행력, 신뢰도 높은 실무형' },
+        desktop: { rank: 1, summary: '깔끔 정리의 끝판왕. 폴더별 정리 철저' },
+        punctuality: { rank: 1, summary: '시계처럼 움직임. 시간 약속 철저' },
+        slacking: { rank: 16, summary: '정해진 시간엔 정해진 일. 딴짓 거의 안 함' },
+        speed: { rank: 5, summary: '절차대로 착착 진행. 실수 없이 빠름' },
+        friendliness: { rank: 12, summary: '신중하고 말수 적지만 책임감으로 신뢰 형성' },
+        factCheck: '너는 틀린 걸 보면 못 참지. 근데 그거 말하면 사람들 불편해해.',
+        meetingKeywords: '"현실적으로", "기한", "절차상", "지금까지의 데이터 기준으로", "이전에는..."',
+        imagination: { rank: 15, summary: '실용적이고 현실적인 접근, 규칙과 전통을 중시하는 상상력' },
+        strength: '책임감과 신뢰성, 세부 사항 처리, 구조적 사고',
+        role: '회계, 법률 담당, 관리자, 품질 관리',
+        strongTrait: '체계적이고 신뢰감 있는 실행력, 책임감 강함',
+        functionAnalysis: { i: '매우 I', s: '매우 S', t: 'T', j: '매우 J', summary: '가장 책임감 있고 조직화된 사실형 관리자' },
+        convenienceStore: { title: '계획형 생존자', goal: '최소한의 시간 투자, 최대의 포만감', action: '들어가기 전부터 뭘 살지 정해놓음', choice: '진라면 + 참치마요 삼각김밥 + 물', detail: '유통기한 확인하고 진열 순서 바로잡음' }
+    },
+    'ISFJ': {
+        color: 'blue',
+        nickname: '수호자',
+        adaptation: { rank: 6, summary: '묵묵히 책임 수행, 갈등 회피, 충성도 높음' },
+        performance: { rank: 12, summary: '헌신적이고 성실, 안정된 실무형' },
+        desktop: { rank: 3, summary: '나만의 질서로 조용히 정리함' },
+        punctuality: { rank: 2, summary: '성실하고 남에게 폐 안 끼치려 함' },
+        slacking: { rank: 14, summary: '조용히 본인 일만 함. 딴짓 거의 없음' },
+        speed: { rank: 9, summary: '느리지만 안정적. 실수 없이 마무리형' },
+        friendliness: { rank: 6, summary: '조용하지만 따뜻함, 묵묵히 챙겨주는 스타일' },
+        factCheck: '혼자 다 끌어안고 일해놓고, 힘들단 말은 안 하지.',
+        meetingKeywords: '"도움이 될 수 있을 것 같아요", "그동안 우리가 해온 방식은", "조율이 필요하겠네요"',
+        imagination: { rank: 14, summary: '헌신적이고 책임감 있는 상상력, 팀워크와 협력에 집중' },
+        strength: '세심함, 책임감, 협력적',
+        role: '인사, 고객 서비스, 교육, 지원 팀',
+        strongTrait: '헌신적이고 세심한 배려, 타인을 돕는 데 기쁨을 느낌',
+        functionAnalysis: { i: '매우 I', s: '매우 S', f: 'T적 F', j: '매우 J', summary: '헌신적이지만 실용적, 감정+현실 밸런스' },
+        convenienceStore: { title: '조용한 정(情) 소비자', goal: '가족이나 룸메도 챙겨가야지', action: '본인 먹을 것 외에 주변 사람 생각까지', choice: '핫바 2개 + 수박주스 + 초코우유', detail: '계산할 때 “이거 행사 맞죠?” 조심스럽게 물어봄' }
+    },
+    'ESTJ': {
+        color: 'blue',
+        nickname: '경영자',
+        adaptation: { rank: 1, summary: '규칙 중시, 책임감 강함, 체계적 실행력 높음' },
+        performance: { rank: 2, summary: '조직적 실행력, 성실함, 실적 중심 사고' },
+        desktop: { rank: 2, summary: '목적별로 분류, 항상 정돈 상태 유지' },
+        punctuality: { rank: 3, summary: '책임감 강해서 절대 지각 안 함' },
+        slacking: { rank: 12, summary: '집중력은 있음. 다만 지루하면 빨리 끝내고 쉬려 함' },
+        speed: { rank: 2, summary: '시스템화된 일 처리에 매우 강함' },
+        friendliness: { rank: 8, summary: '딱딱해 보이지만 책임감과 일처리로 신뢰 얻음' },
+        factCheck: '너 기준에선 이게 맞는 거야. 근데 사람은 감정이 있다고.',
+        meetingKeywords: '"책임은 누가 지나요?", "이건 언제까지?", "성과는 어떻게 측정하죠?"',
+        imagination: { rank: 11, summary: '구체적이고 실용적인 문제 해결, 효율적인 실행을 중요시' },
+        strength: '조직적이고 체계적, 결단력, 책임감',
+        role: '프로젝트 매니저, 운영 관리자, 조직 리더, 팀 리더',
+        strongTrait: '명확한 기준과 실행력, 조직의 중심 축 역할',
+        functionAnalysis: { e: '매우 E', s: '매우 S', t: '매우 T', j: '매우 J', summary: '전통적이고 조직 중심, 실행력 최상급' },
+        convenienceStore: { title: '정확한 계산기', goal: '할인 + 포만감 + 효율', action: '가격 대비 성능 분석 후 구매', choice: '행사 도시락 + 탄산수', detail: '영수증 꼼꼼히 보고 포인트 적립도 확실하게' }
+    },
+    'ESFJ': {
+        color: 'blue',
+        nickname: '집정관',
+        adaptation: { rank: 2, summary: '사람 배려, 조직 친화적, 관계 관리에 강함' },
+        performance: { rank: 11, summary: '협업과 조율 잘함, 팀 분위기 안정화' },
+        desktop: { rank: 4, summary: '보기 좋게, 다른 사람 배려도 반영' },
+        punctuality: { rank: 4, summary: '타인 배려해서 시간 잘 맞춤' },
+        slacking: { rank: 13, summary: '다른 사람 눈치 봐서 딴짓 잘 못함' },
+        speed: { rank: 6, summary: '타인 기대에 민감해서 빠르게 처리하려 함' },
+        friendliness: { rank: 1, summary: '공감력 최고, 팀워크 중심, 분위기 메이커' },
+        factCheck: '남들 기분 챙기느라 네 감정은 자주 무시되지.',
+        meetingKeywords: '"팀워크가 중요하죠", "다 같이 만족할 수 있는 방향이면 좋겠어요", "분위기 고려해야"',
+        imagination: { rank: 12, summary: '사람들 간의 협력과 관계에서의 상상력, 주변 사람들을 돌보는 성격' },
+        strength: '사람 중심, 협력, 책임감',
+        role: 'HR, 고객 서비스, 팀 리더, 관리직',
+        strongTrait: '조화와 협력의 달인, 관계 중심 실무형 리더',
+        functionAnalysis: { e: '매우 E', s: '매우 S', f: '매우 F', j: '매우 J', summary: '사람 중심 실무가, 조화 유지형' },
+        convenienceStore: { title: '정 많은 편의점 엄마', goal: '다 같이 나눠먹을 것까지', action: '같이 있는 사람들 것까지 챙김', choice: '초코우유 2개 + 김밥 + 과자 큰 봉지', detail: '“이거 나중에 나눠먹자~” 하며 들고 나감' }
+    },
+
+    // 탐험가형
+    'ISTP': {
+        color: 'amber',
+        nickname: '장인',
+        adaptation: { rank: 10, summary: '실용적 문제 해결, 단독 작업에 강함' },
+        performance: { rank: 10, summary: '실용적이고 독립적인 문제 해결 능력' },
+        desktop: { rank: 9, summary: '정리는 귀찮지만 기능적 배치는 함' },
+        punctuality: { rank: 9, summary: '유동적이지만 크게 흐트러지진 않음' },
+        slacking: { rank: 9, summary: '일 끝내긴 하지만 중간에 쉬는 시간 많음' },
+        speed: { rank: 10, summary: '느긋해 보이지만 할 땐 빨리 함' },
+        friendliness: { rank: 16, summary: '혼자 있는 걸 편해함, 말 걸면 잘 받아주지만 먼저 다가가진 않음' },
+        factCheck: '일 잘해도 감정 표현 안 하면 오해받는다고.',
+        meetingKeywords: '"이건 그냥 이렇게 하면 되죠", "기능적으로만 보면", "불필요한 단계 같아요"',
+        imagination: { rank: 8, summary: '기술적 혁신과 문제 해결에 대한 창의적 상상력' },
+        strength: '기술적 능력, 분석적 사고, 즉각적인 반응',
+        role: '기술 지원, 엔지니어, 시스템 관리자, IT 관리자',
+        strongTrait: '논리적 분석과 즉각적 문제 해결 능력',
+        functionAnalysis: { i: '매우 I', s: '매우 S', t: '매우 T', p: 'P', summary: '분석적이고 즉흥적, 실용적 사고 우위' },
+        convenienceStore: { title: '무심한듯 자연스럽게', goal: '빠르게, 조용히, 맛있게', action: '말없이 들어와 말없이 나감', choice: '매운 불닭볶음면 + 우유', detail: '컵라면 물 붓고 기다리는 동안 핸드폰만 봄' }
+    },
+    'ISFP': {
+        color: 'amber',
+        nickname: '모험가',
+        adaptation: { rank: 7, summary: '조용하지만 협조적, 감정 섬세, 실무형' },
+        performance: { rank: 14, summary: '감각적이고 실무에 강함, 단 반복적인 업무에 금방 질림' },
+        desktop: { rank: 10, summary: '내 스타일로 정돈, 미적 감각 있음' },
+        punctuality: { rank: 10, summary: '기분 따라 움직이지만 기본은 있음' },
+        slacking: { rank: 5, summary: '하기 싫은 일엔 손 안 댐. 감성 충전 필요' },
+        speed: { rank: 11, summary: '감정 따라 속도 다름. 급하면 빨라짐' },
+        friendliness: { rank: 7, summary: '감정 섬세하고 편안한 분위기, 말수 적지만 친해지면 정 깊음' },
+        factCheck: '하고 싶은 일만 하고 싶어 하지. 근데 회사는 그걸 안 물어봐.',
+        meetingKeywords: '"느낌상 이게 좀 더 자연스럽지 않아요?", "이건 좀 거슬리네요", "조금 더 부드럽게"',
+        imagination: { rank: 7, summary: '예술적이고 감성적인 상상력, 창의적인 표현에 능숙' },
+        strength: '창의성, 감성적 지능, 실용적인 해결책',
+        role: '디자이너, 예술 분야, 마케팅 크리에이티브 팀, 제품 개발',
+        strongTrait: '온화하고 조용하지만 깊은 미적 감각과 가치 중심',
+        functionAnalysis: { i: '매우 I', s: 'S', f: '매우 F', p: '매우 P', summary: '자유롭고 감성적인 체험형 예술가' },
+        convenienceStore: { title: '무드충족형 소비자', goal: '예쁘고 감성적인 거', action: '인스타 감성 상품 고르는데 집중', choice: '한정판 떡볶이 + 복숭아 아이스티 + 캐릭터 젤리', detail: '사진 찍고 나서 먹음' }
+    },
+    'ESTP': {
+        color: 'amber',
+        nickname: '사업가',
+        adaptation: { rank: 11, summary: '빠른 적응력, 위기 대응 강함, 구조적 일엔 약함' },
+        performance: { rank: 9, summary: '빠른 판단, 위기 대처 강함, 현실 감각 좋음' },
+        desktop: { rank: 11, summary: '필요할 때만 정리, 평소엔 쌓아둠' },
+        punctuality: { rank: 11, summary: '피곤하면 늦게 올 수도 있음' },
+        slacking: { rank: 7, summary: '반복 일 싫어함. 몰래 폰 보는 비율 높음' },
+        speed: { rank: 3, summary: '빠른 판단, 실행 속도 빠름. 생각보다 먼저 행동' },
+        friendliness: { rank: 11, summary: '즉흥적이고 유쾌하지만 약간 부담 줄 수 있음' },
+        factCheck: '능력은 넘쳐. 근데 가끔 너무 즉흥이라 팀이 못 따라가.',
+        meetingKeywords: '"이건 그냥 바로 실행하면 돼요", "일단 부딪쳐보죠", "기회인데요 이거?"',
+        imagination: { rank: 9, summary: '적응력과 자유로운 사고, 현실적이고 실용적인 문제 해결' },
+        strength: '즉흥적 문제 해결, 사람 중심, 적응력',
+        role: '세일즈, 마케팅, 고객 관리, 전략 개발',
+        strongTrait: '순간 대처와 현실 감각 뛰어남, 행동 중심 해결사',
+        functionAnalysis: { e: '매우 E', s: '매우 S', t: '매우 T', p: 'F적 P', summary: '즉흥적이지만 논리 중심의 현실 실전가' },
+        convenienceStore: { title: '순간의 쾌락', goal: '지금 당장 맛있으면 됨', action: '주변 사람들 추천받아서 결정', choice: '닭강정 + 맥주 + 후식으로 아이스크림', detail: '계산하고 나서도 다시 하나 더 집어 옴' }
+    },
+    'ESFP': {
+        color: 'amber',
+        nickname: '연예인',
+        adaptation: { rank: 16, summary: '자유 추구 성향 강할 경우, 조직 규율과 충돌 가능' }, // ENFP와 중복되어 ESFP로 임의 조정
+        performance: { rank: 16, summary: '이상 추구 성향이 너무 강할 경우, 현실과 괴리로 성과 낮을 수 있음' }, // INFP와 중복되어 ESFP로 임의 조정
+        desktop: { rank: 12, summary: '감각 위주 정리, 분위기 보고 가끔 정돈' },
+        punctuality: { rank: 12, summary: '늦는 이유를 잘 만듦… 하지만 미워하긴 어려움' },
+        slacking: { rank: 6, summary: '집중 짧고 주변 분위기에도 민감함' },
+        speed: { rank: 8, summary: '재미있으면 속도 빠름. 집중력은 짧음' },
+        friendliness: { rank: 4, summary: '에너지 넘치고 사교성 좋음, 사람 끄는 힘 있음' },
+        factCheck: '팀 분위기는 좋아져. 근데 보고서 마감은 안 맞더라.',
+        meetingKeywords: '"이거 재밌게 풀어보면 어때요?", "사람들이 좋아할 것 같아요", "현장 반응은요?"',
+        imagination: { rank: 10, summary: '사교적이고 활기찬 상상력, 사람들과의 관계에서 상상력 발휘' },
+        strength: '사교성, 즉흥적, 창의성',
+        role: '홍보, 이벤트 기획, 영업, 고객 관계 관리',
+        strongTrait: '분위기 메이커, 현실 즐기고 사람들과 잘 어울림',
+        functionAnalysis: { e: '매우 E', s: 'S', f: '매우 F', p: '매우 P', summary: '사교적이고 감각적, 즉흥 감정형 퍼포머' },
+        convenienceStore: { title: '화려한 야식쇼', goal: '분위기 + 맛 + SNS 각', action: '이건 올려야 해!', choice: '핫도그 + 콜라 + 디저트 2개', detail: '샀던 걸 포장 뜯기 전에 스토리에 올림' }
+    }
+};
+
+
+// --- 애플리케이션 로직 ---
+document.addEventListener('DOMContentLoaded', () => {
+    const selector = document.getElementById('mbtiSelector');
+    const resultsArea = document.getElementById('resultsArea');
+    const mbtiTypes = Object.keys(mbtiData);
+
+    const colors = {
+        purple: { bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-purple-500', ring: 'ring-purple-500' },
+        green: { bg: 'bg-green-100', text: 'text-green-800', border: 'border-green-500', ring: 'ring-green-500' },
+        blue: { bg: 'bg-blue-100', text: 'text-blue-800', border: 'border-blue-500', ring: 'ring-blue-500' },
+        amber: { bg: 'bg-amber-100', text: 'text-amber-800', border: 'border-amber-500', ring: 'ring-amber-500' },
+    };
+
+    // MBTI 선택 버튼 생성
+    mbtiTypes.forEach(type => {
+        const data = mbtiData[type];
+        const colorClass = colors[data.color];
+        const button = document.createElement('button');
+        button.textContent = type;
+        button.dataset.type = type;
+        button.className = `mbti-btn p-3 md:p-4 rounded-lg font-bold text-lg ${colorClass.bg} ${colorClass.text}`;
+        selector.appendChild(button);
+    });
+
+    // 버튼 클릭 이벤트 리스너
+    selector.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            const selectedType = e.target.dataset.type;
+            
+            // 선택된 버튼 스타일 업데이트
+            document.querySelectorAll('.mbti-btn').forEach(btn => {
+                btn.classList.remove('selected', 'ring-2', 'ring-offset-2');
+                const btnColorClass = colors[mbtiData[btn.dataset.type].color].ring;
+                btn.classList.remove(btnColorClass);
+            });
+            const selectedBtnColor = colors[mbtiData[selectedType].color].ring;
+            e.target.classList.add('selected', 'ring-2', 'ring-offset-2', selectedBtnColor);
+
+            displayMbtiInfo(selectedType);
+            
+            // 결과 영역으로 스크롤
+            resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+
+    // 선택된 MBTI 정보 표시 함수
+    function displayMbtiInfo(type) {
+        const data = mbtiData[type];
+        const colorClass = colors[data.color];
+
+        const resultsHTML = `
+            <div class="fade-in">
+                <div class="text-center p-8 ${colorClass.bg} rounded-t-2xl">
+                    <h2 class="text-4xl font-bold ${colorClass.text}">${type} (${data.nickname})</h2>
+                    <p class="text-xl mt-2 ${colorClass.text}">${data.strongTrait}</p>
+                </div>
+                
+                <div class="bg-white p-6 md:p-8 rounded-b-2xl shadow-lg">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- 회사생활 순위 -->
+                        ${createCardHTML('🏢 조직 적응도', `${data.adaptation.rank}위`, data.adaptation.summary)}
+                        ${createCardHTML('🚀 업무 성과', `${data.performance.rank}위`, data.performance.summary)}
+                        ${createCardHTML('💻 바탕화면 정리', `${data.desktop.rank}위`, data.desktop.summary)}
+                        ${createCardHTML('⏰ 근태', `${data.punctuality.rank}위`, data.punctuality.summary)}
+                        ${createCardHTML('🤫 딴짓', `${data.slacking.rank}위`, data.slacking.summary)}
+                        ${createCardHTML('⚡ 업무 처리 속도', `${data.speed.rank}위`, data.speed.summary)}
+                        ${createCardHTML('🤝 동료 친화력', `${data.friendliness.rank}위`, data.friendliness.summary)}
+                        ${createCardHTML('🎨 상상력', `${data.imagination.rank}위`, data.imagination.summary)}
+                        
+                        <!-- 팩폭 & 키워드 -->
+                        <div class="card bg-gray-50 p-5 rounded-xl col-span-1 md:col-span-2 lg:col-span-1">
+                            <h4 class="font-bold text-lg mb-2">📌 회사생활 팩폭</h4>
+                            <p class="text-gray-700 italic">"${data.factCheck}"</p>
+                        </div>
+                        <div class="card bg-gray-50 p-5 rounded-xl col-span-1 md:col-span-2">
+                            <h4 class="font-bold text-lg mb-2">💬 회의실 키워드</h4>
+                            <p class="text-gray-700 font-mono text-sm">${data.meetingKeywords}</p>
+                        </div>
+
+                        <!-- 편의점 시뮬레이션 -->
+                        <div class="card bg-gray-50 p-5 rounded-xl md:col-span-2 lg:col-span-3">
+                            <h4 class="font-bold text-lg mb-2">🏪 편의점 선택 시뮬레이션: ${data.convenienceStore.title}</h4>
+                            <div class="text-sm space-y-1 text-gray-700">
+                                <p><strong class="font-semibold">목표:</strong> ${data.convenienceStore.goal}</p>
+                                <p><strong class="font-semibold">행동:</strong> ${data.convenienceStore.action}</p>
+                                <p><strong class="font-semibold">선택:</strong> ${data.convenienceStore.choice}</p>
+                                <p><strong class="font-semibold">디테일:</strong> ${data.convenienceStore.detail}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        resultsArea.innerHTML = resultsHTML;
+    }
+
+    function createCardHTML(title, rank, summary) {
+        return `
+            <div class="card bg-gray-50 p-5 rounded-xl">
+                <h4 class="font-bold text-lg mb-2">${title}</h4>
+                <p class="text-2xl font-bold text-indigo-600 mb-2">${rank}</p>
+                <p class="text-sm text-gray-600">${summary}</p>
+            </div>
+        `;
+    }
+
+});
+</script>
+
+</body>
+</html>
