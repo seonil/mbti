@@ -37,7 +37,7 @@
       position: relative;
     }
     .glow-card::before {
-      content: "";
+      content: ";
       position: absolute;
       inset: -1px;
       border-radius: inherit;
@@ -45,6 +45,390 @@
       opacity: 0.45;
       filter: blur(22px);
       z-index: -1;
+    }
+    .quiz-stack {
+      position: relative;
+      width: min(100%, 520px);
+      min-height: 390px;
+    }
+    .quiz-card {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateY(32px) scale(0.94);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .quiz-card.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .quiz-card.completed {
+      opacity: 0;
+      transform: translateY(-48px) scale(0.85);
+    }
+    .quiz-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+    }
+    .quiz-card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .quiz-card-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 32px 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 25px 60px rgba(2, 6, 23, 0.35);
+      backface-visibility: hidden;
+    }
+    .quiz-card-back {
+      transform: rotateY(180deg);
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+    .quiz-round {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.45rem 0.95rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(148, 163, 184, 0.12);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #cbd5f5;
+    }
+    .quiz-hint {
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
+      color: #94A3B8;
+      background: rgba(148, 163, 184, 0.12);
+      border-radius: 16px;
+      padding: 0.85rem 1rem;
+      line-height: 1.6;
+    }
+    .quiz-option {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(15, 23, 42, 0.6);
+      color: #E2E8F0;
+      font-weight: 600;
+      text-align: left;
+      padding: 14px 18px;
+      transition: all 0.2s ease;
+    }
+    .quiz-option:hover {
+      border-color: var(--quiz-accent, rgba(148, 163, 184, 0.45));
+      background: rgba(15, 118, 110, 0.18);
+      transform: translateY(-2px);
+    }
+    .quiz-option:disabled {
+      cursor: not-allowed;
+    }
+    .quiz-option-correct {
+      border-color: rgba(34, 197, 94, 0.65) !important;
+      background: rgba(34, 197, 94, 0.2) !important;
+      color: #bbf7d0 !important;
+    }
+    .quiz-option-wrong {
+      border-color: rgba(248, 113, 113, 0.6) !important;
+      background: rgba(248, 113, 113, 0.18) !important;
+      color: #fecaca !important;
+    }
+    .quiz-option-disabled {
+      opacity: 0.5;
+    }
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.4rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+    .result-success {
+      border-color: rgba(34, 197, 94, 0.45);
+      background: rgba(34, 197, 94, 0.14);
+      color: #bbf7d0;
+    }
+    .result-fail {
+      border-color: rgba(248, 113, 113, 0.4);
+      background: rgba(248, 113, 113, 0.14);
+      color: #fecaca;
+    }
+    .quiz-stat-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 130px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(12px);
+    }
+    .quiz-stat-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #94A3B8;
+    }
+    .quiz-stat-value {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      color: #E2E8F0;
+      font-weight: 700;
+    }
+    .quiz-stat-total {
+      font-size: 0.8rem;
+      color: #64748B;
+    }
+    .quiz-summary.hidden {
+      display: none;
+    }
+    .quiz-restart {
+      margin-top: 1.6rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1.6rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: transparent;
+      color: #E2E8F0;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+    .quiz-restart:hover {
+      border-color: rgba(148, 163, 184, 0.65);
+      background: rgba(148, 163, 184, 0.18);
+    }
+    @media (max-width: 640px) {
+      .quiz-card-face {
+        padding: 24px 20px;
+        gap: 16px;
+      }
+      .quiz-stack {
+        min-height: 340px;
+      }
+      .quiz-stat-card {
+        min-width: 110px;
+      }
+    }
+
+  
+    .quiz-stack {
+      position: relative;
+      width: min(100%, 520px);
+      min-height: 390px;
+    }
+    .quiz-card {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateY(32px) scale(0.94);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .quiz-card.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .quiz-card.completed {
+      opacity: 0;
+      transform: translateY(-48px) scale(0.85);
+    }
+    .quiz-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+    }
+    .quiz-card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .quiz-card-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 32px 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 25px 60px rgba(2, 6, 23, 0.35);
+      backface-visibility: hidden;
+    }
+    .quiz-card-back {
+      transform: rotateY(180deg);
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+    .quiz-round {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.45rem 0.95rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(148, 163, 184, 0.12);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #cbd5f5;
+    }
+    .quiz-hint {
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
+      color: #94A3B8;
+      background: rgba(148, 163, 184, 0.12);
+      border-radius: 16px;
+      padding: 0.85rem 1rem;
+      line-height: 1.6;
+    }
+    .quiz-option {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(15, 23, 42, 0.6);
+      color: #E2E8F0;
+      font-weight: 600;
+      text-align: left;
+      padding: 14px 18px;
+      transition: all 0.2s ease;
+    }
+    .quiz-option:hover {
+      border-color: var(--quiz-accent, rgba(148, 163, 184, 0.45));
+      background: rgba(15, 118, 110, 0.18);
+      transform: translateY(-2px);
+    }
+    .quiz-option:disabled {
+      cursor: not-allowed;
+    }
+    .quiz-option-correct {
+      border-color: rgba(34, 197, 94, 0.65) !important;
+      background: rgba(34, 197, 94, 0.2) !important;
+      color: #bbf7d0 !important;
+    }
+    .quiz-option-wrong {
+      border-color: rgba(248, 113, 113, 0.6) !important;
+      background: rgba(248, 113, 113, 0.18) !important;
+      color: #fecaca !important;
+    }
+    .quiz-option-disabled {
+      opacity: 0.5;
+    }
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.4rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+    .result-success {
+      border-color: rgba(34, 197, 94, 0.45);
+      background: rgba(34, 197, 94, 0.14);
+      color: #bbf7d0;
+    }
+    .result-fail {
+      border-color: rgba(248, 113, 113, 0.4);
+      background: rgba(248, 113, 113, 0.14);
+      color: #fecaca;
+    }
+    .quiz-stat-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 130px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(12px);
+    }
+    .quiz-stat-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #94A3B8;
+    }
+    .quiz-stat-value {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      color: #E2E8F0;
+      font-weight: 700;
+    }
+    .quiz-stat-total {
+      font-size: 0.8rem;
+      color: #64748B;
+    }
+    .quiz-summary.hidden {
+      display: none;
+    }
+    .quiz-restart {
+      margin-top: 1.6rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1.6rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: transparent;
+      color: #E2E8F0;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+    .quiz-restart:hover {
+      border-color: rgba(148, 163, 184, 0.65);
+      background: rgba(148, 163, 184, 0.18);
+    }
+    @media (max-width: 640px) {
+      .quiz-card-face {
+        padding: 24px 20px;
+        gap: 16px;
+      }
+      .quiz-stack {
+        min-height: 340px;
+      }
+      .quiz-stat-card {
+        min-width: 110px;
+      }
     }
   </style>
 </head>
@@ -241,6 +625,90 @@
       "accentText": "#92400E",
       "headerGradient": "linear-gradient(135deg, #F59E0B 0%, #F97316 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "폭죽 같은 아이디어 댄서과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ENFP와의 회의는 축제처럼 시작되지만, 명확한 결론이 없다면 모두 지쳐버린다. 공감과 현실을 동시에 챙기면 최고의 파트너가 된다.",
+          "options": [
+            {
+              "label": "공감 폭죽",
+              "isCorrect": true,
+              "feedback": "첫 5분 안에 그의 아이디어에 공감하는 한 문장을 던져 신뢰를 얻는다."
+            },
+            {
+              "label": "현실 앵커",
+              "isCorrect": false,
+              "feedback": "열정의 불꽃을 사람·시간·예산 세 가지 실행 카드로 고정해준다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "긍정 피날레",
+              "isCorrect": false,
+              "feedback": "회의를 마무리할 때 성공했을 때의 즐거운 장면을 그려보며 긍정의 결론을 맺는다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "폭죽 같은 아이디어 댄서에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 중간 점검 없는 열정 폭주을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "아이디어를 즉시 정리해주는 협업 화이트보드",
+              "isCorrect": true,
+              "feedback": "아이디어를 즉시 정리해주는 협업 화이트보드이(가) 있어야 폭죽 같은 아이디어 댄서의 강점이 폭발해요."
+            },
+            {
+              "label": "아웃풋을 정리해주는 ESTJ 동료",
+              "isCorrect": false,
+              "feedback": "아웃풋을 정리해주는 ESTJ 동료은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "중간 점검 없는 열정 폭주",
+              "isCorrect": false,
+              "feedback": "중간 점검 없는 열정 폭주은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "폭죽 같은 아이디어 댄서에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "이번 아이디어를 10분짜리 실험으로 줄이면 무엇이 남을까요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "야! 그냥 질러봅시다. 나중에 생각하죠!",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "이건 대충 넘어가도 되죠?",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "폭죽 같은 아이디어 댄서의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ENFP 생존 시뮬레이션 결과",
+        "winMessage": "이번 주에 가볍게 테스트하자는 제안과 함께 모두가 웃는 장면을 그려주면 열정과 결론을 동시에 잡는다.",
+        "loseMessage": "폭죽 같은 아이디어 댄서과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ENFJ": {
@@ -308,6 +776,90 @@
       "accentText": "#B91C1C",
       "headerGradient": "linear-gradient(135deg, #EF4444 0%, #DC2626 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "연합을 이끄는 비전 리더과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ENFJ는 팀 전체를 위해 움직인다. 비전을 공유하고 사람 중심의 계획을 제시하면 강력한 배후 지원을 얻게 된다.",
+          "options": [
+            {
+              "label": "비전 동조",
+              "isCorrect": true,
+              "feedback": "회의 오프닝에서 큰 그림 목표를 한 문장으로 함께 선언한다."
+            },
+            {
+              "label": "역할 맞춤 배치",
+              "isCorrect": false,
+              "feedback": "각자 강점에 맞춘 역할 제안을 구체적으로 설명한다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "파트너십 선언",
+              "isCorrect": false,
+              "feedback": "상호 피드백 루틴과 체크인 일정을 확정해 동맹을 공고히 한다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "연합을 이끄는 비전 리더에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 감정 노동 과부하을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "팀 분위기를 시각화한 리더십 대시보드",
+              "isCorrect": true,
+              "feedback": "팀 분위기를 시각화한 리더십 대시보드이(가) 있어야 연합을 이끄는 비전 리더의 강점이 폭발해요."
+            },
+            {
+              "label": "냉철한 분석을 더해주는 INTJ",
+              "isCorrect": false,
+              "feedback": "냉철한 분석을 더해주는 INTJ은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "감정 노동 과부하",
+              "isCorrect": false,
+              "feedback": "감정 노동 과부하은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "연합을 이끄는 비전 리더에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "지금 팀이 가장 필요로 하는 감정은 무엇일까요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "일단 결론부터 말할게요. 내일 다시 얘기해요.",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "그냥 네가 알아서 해.",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "연합을 이끄는 비전 리더의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ENFJ 생존 시뮬레이션 결과",
+        "winMessage": "파트너십 서약과 다음 체크인 예약까지 마치면 ENFJ의 신뢰 배지를 획득한다.",
+        "loseMessage": "연합을 이끄는 비전 리더과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ENTP": {
@@ -375,6 +927,90 @@
       "accentText": "#047857",
       "headerGradient": "linear-gradient(135deg, #10B981 0%, #059669 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "아이디어 스파링 챔피언과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ENTP는 논쟁 속에서 아이디어를 발견한다. 토론의 룰을 정하고 결론 버튼을 준비하면 함께 즐거운 혁신을 만든다.",
+          "options": [
+            {
+              "label": "놀이 판 깔기",
+              "isCorrect": true,
+              "feedback": "대결을 게임처럼 연출하고 토론 룰을 가볍게 정한다."
+            },
+            {
+              "label": "가설 캐치볼",
+              "isCorrect": false,
+              "feedback": "나오는 아이디어를 화이트보드에 가설·반증으로 정리하며 뇌를 달군다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "결론 스위치",
+              "isCorrect": false,
+              "feedback": "분위기가 뜨거워졌을 때 두 개의 실행 옵션을 제시해 결론을 끌어낸다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "아이디어 스파링 챔피언에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 끝나지 않는 말싸움을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "타이머가 달린 논쟁 스톱워치",
+              "isCorrect": true,
+              "feedback": "타이머가 달린 논쟁 스톱워치이(가) 있어야 아이디어 스파링 챔피언의 강점이 폭발해요."
+            },
+            {
+              "label": "마감 시계를 지켜주는 ISTJ",
+              "isCorrect": false,
+              "feedback": "마감 시계를 지켜주는 ISTJ은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "끝나지 않는 말싸움",
+              "isCorrect": false,
+              "feedback": "끝나지 않는 말싸움은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "아이디어 스파링 챔피언에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "이 논점, 5분 토론 게임으로 돌려볼까요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "회의는 여기서 끝! 세부 계획은 생략할게요.",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "그냥 마음 가는 대로 해보죠?",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "아이디어 스파링 챔피언의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ENTP 생존 시뮬레이션 결과",
+        "winMessage": "실험 카드 한 장에 도장 받으면 최고의 스파링 파트너 인증.",
+        "loseMessage": "아이디어 스파링 챔피언과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ENTJ": {
@@ -442,6 +1078,90 @@
       "accentText": "#92400E",
       "headerGradient": "linear-gradient(135deg, #D97706 0%, #B45309 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "판을 키우는 카리스마 지휘관과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ENTJ는 큰 그림과 성장을 추구한다. 시장을 읽어낸 인사이트와 실행 구조를 제시하면 강력한 파트너십을 얻는다.",
+          "options": [
+            {
+              "label": "시장 판독",
+              "isCorrect": true,
+              "feedback": "시장 흐름과 경쟁 분석 자료로 시야를 넓혀준다."
+            },
+            {
+              "label": "비전 업그레이드",
+              "isCorrect": false,
+              "feedback": "현재 전략보다 더 큰 그림을 제시해 호기심을 자극한다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "실행 동맹",
+              "isCorrect": false,
+              "feedback": "핵심 KPI와 책임 구조를 명확히 하며 공동의 목표를 약속한다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "판을 키우는 카리스마 지휘관에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 조직 피로도을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "전략 실행을 추적하는 OKR 시스템",
+              "isCorrect": true,
+              "feedback": "전략 실행을 추적하는 OKR 시스템이(가) 있어야 판을 키우는 카리스마 지휘관의 강점이 폭발해요."
+            },
+            {
+              "label": "사람 케어를 맡는 ENFJ",
+              "isCorrect": false,
+              "feedback": "사람 케어를 맡는 ENFJ은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "조직 피로도",
+              "isCorrect": false,
+              "feedback": "조직 피로도은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "판을 키우는 카리스마 지휘관에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "경쟁사 상황을 이렇게 분석해봤습니다.",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "굳이 보고할 필요 없겠죠?",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "일단 즐기고 나중에 수습하죠!",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "판을 키우는 카리스마 지휘관의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ENTJ 생존 시뮬레이션 결과",
+        "winMessage": "‘당신과라면 더 크게 갈 수 있겠군’이라는 말이 나오면 전략 승리.",
+        "loseMessage": "판을 키우는 카리스마 지휘관과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "INFJ": {
@@ -509,6 +1229,90 @@
       "accentText": "#5B21B6",
       "headerGradient": "linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "통찰력의 비전 큐레이터과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "INFJ는 의미와 사람을 연결하는 데 탁월하다. 통찰 있는 비전과 진정성 있는 약속이 필요하다.",
+          "options": [
+            {
+              "label": "통찰 공유",
+              "isCorrect": true,
+              "feedback": "프로젝트가 만들 변화를 진지하게 정리해 공감대를 만든다."
+            },
+            {
+              "label": "신념 연결",
+              "isCorrect": false,
+              "feedback": "상대의 가치와 이번 전략을 연결해 마음을 움직인다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "서약서 작성",
+              "isCorrect": false,
+              "feedback": "서로 지킬 원칙과 체크인을 글로 남겨 책임감을 만든다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "통찰력의 비전 큐레이터에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 감정 과몰입을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "비전과 실행을 연결하는 매트릭스",
+              "isCorrect": true,
+              "feedback": "비전과 실행을 연결하는 매트릭스이(가) 있어야 통찰력의 비전 큐레이터의 강점이 폭발해요."
+            },
+            {
+              "label": "실행을 정리하는 ESTJ",
+              "isCorrect": false,
+              "feedback": "실행을 정리하는 ESTJ은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "감정 과몰입",
+              "isCorrect": false,
+              "feedback": "감정 과몰입은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "통찰력의 비전 큐레이터에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "이 프로젝트가 만들어낼 변화는 어떤 모습일까요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "내가 알아서 정리했다 치고 넘어가죠.",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "다음 주에 기억나면 말해줄게요.",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "통찰력의 비전 큐레이터의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "INFJ 생존 시뮬레이션 결과",
+        "winMessage": "함께 만들 미래에 대한 서약으로 끝맺으면 INFJ의 신뢰가 완성된다.",
+        "loseMessage": "통찰력의 비전 큐레이터과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "INFP": {
@@ -576,6 +1380,90 @@
       "accentText": "#9D174D",
       "headerGradient": "linear-gradient(135deg, #F472B6 0%, #EC4899 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "가치를 지키는 감성 큐레이터과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "INFP는 진정성 있는 의미를 발견할 때 움직인다. 가치를 존중하고 감정의 속도를 맞춰주면 가장 따뜻한 동맹이 된다.",
+          "options": [
+            {
+              "label": "가치 공명",
+              "isCorrect": true,
+              "feedback": "대화 초반 프로젝트가 세상에 줄 긍정적 영향을 함께 상상한다."
+            },
+            {
+              "label": "안전 공간 확보",
+              "isCorrect": false,
+              "feedback": "의견을 말해도 괜찮다는 확신을 주는 문장을 먼저 건네 마음을 연다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "상호 약속",
+              "isCorrect": false,
+              "feedback": "실행 계획에 감정 케어 루틴까지 포함해 꼼꼼히 적는다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "가치를 지키는 감성 큐레이터에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 충돌 회피로 생기는 방치을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "감정 배터리를 체크할 수 있는 저널",
+              "isCorrect": true,
+              "feedback": "감정 배터리를 체크할 수 있는 저널이(가) 있어야 가치를 지키는 감성 큐레이터의 강점이 폭발해요."
+            },
+            {
+              "label": "구체화를 돕는 ENFJ 혹은 INFJ",
+              "isCorrect": false,
+              "feedback": "구체화를 돕는 ENFJ 혹은 INFJ은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "충돌 회피로 생기는 방치",
+              "isCorrect": false,
+              "feedback": "충돌 회피로 생기는 방치은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "가치를 지키는 감성 큐레이터에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "이 일이 우리에게 주는 의미를 한번 정리해볼까요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "일단 결과는 운에 맡겨요.",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "조금 대충해도 괜찮겠죠?",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "가치를 지키는 감성 큐레이터의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "INFP 생존 시뮬레이션 결과",
+        "winMessage": "우리 속도로 가도 괜찮다는 메시지와 함께 서로의 약속을 기록하면 신뢰 게이지 MAX.",
+        "loseMessage": "가치를 지키는 감성 큐레이터과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "INTP": {
@@ -643,6 +1531,90 @@
       "accentText": "#0C4A6E",
       "headerGradient": "linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "밤샘 추리 매니아과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "INTP는 문제의 본질을 파고드는 탐험가다. 논점을 선명하게 정리하고 실험 옵션을 주면 누구보다 빠르게 몰입한다.",
+          "options": [
+            {
+              "label": "논점 선 긋기",
+              "isCorrect": true,
+              "feedback": "토론 시작 전에 해결해야 하는 질문 하나를 화이트보드에 적어 방향을 고정한다."
+            },
+            {
+              "label": "자료 압축팩",
+              "isCorrect": false,
+              "feedback": "핵심 근거 세 개로 요약된 레퍼런스를 공유해 지적 호기심을 자극한다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "가설 실험 제안",
+              "isCorrect": false,
+              "feedback": "30분 안에 검증 가능한 미니 실험을 설계해 함께 실행을 약속한다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "밤샘 추리 매니아에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 끝없는 가설 완성 루프을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "결론부터 말하기를 도와주는 회의 메모 템플릿",
+              "isCorrect": true,
+              "feedback": "결론부터 말하기를 도와주는 회의 메모 템플릿이(가) 있어야 밤샘 추리 매니아의 강점이 폭발해요."
+            },
+            {
+              "label": "디테일 태그를 달아주는 ISFJ 동료",
+              "isCorrect": false,
+              "feedback": "디테일 태그를 달아주는 ISFJ 동료은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "끝없는 가설 완성 루프",
+              "isCorrect": false,
+              "feedback": "끝없는 가설 완성 루프은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "밤샘 추리 매니아에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "지금 가장 궁금한 질문 하나만 정해볼까요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "기록은 필요 없겠지요?",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "어차피 다들 알겠죠?",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "밤샘 추리 매니아의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "INTP 생존 시뮬레이션 결과",
+        "winMessage": "‘이 실험으로 무엇이 검증되면 다음 단계로 갈까요?’라는 질문에 답을 얻으면 승리 타이밍.",
+        "loseMessage": "밤샘 추리 매니아과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "INTJ": {
@@ -710,6 +1682,90 @@
       "accentText": "#4C1D95",
       "headerGradient": "linear-gradient(135deg, #6D28D9 0%, #4C1D95 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "전술 설계 마스터과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "INTJ는 모든 프로젝트를 장기 시뮬레이션으로 본다. 현재 판도를 읽고 전략적 대안을 제시하면 당신을 진짜 동료로 받아들인다.",
+          "options": [
+            {
+              "label": "전체판 읽기",
+              "isCorrect": true,
+              "feedback": "미팅 첫 단계에서 현재 상황의 핵심 변수 세 가지를 정리해 보여준다."
+            },
+            {
+              "label": "시나리오 비교",
+              "isCorrect": false,
+              "feedback": "최선·차선 전략을 수치화한 미니 테이블로 설득하며 선택지를 좁힌다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "승리 조건 명시",
+              "isCorrect": false,
+              "feedback": "성공 조건과 실패 신호를 함께 정의해 공동의 마스터 플랜을 만든다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "전술 설계 마스터에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 즉흥 변수로 인한 피로을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "전략 추적용 KPI 대시보드",
+              "isCorrect": true,
+              "feedback": "전략 추적용 KPI 대시보드이(가) 있어야 전술 설계 마스터의 강점이 폭발해요."
+            },
+            {
+              "label": "영감을 불어넣는 ENFP",
+              "isCorrect": false,
+              "feedback": "영감을 불어넣는 ENFP은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "즉흥 변수로 인한 피로",
+              "isCorrect": false,
+              "feedback": "즉흥 변수로 인한 피로은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "전술 설계 마스터에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "목표 지표를 이렇게 재정의해봤는데 어떠세요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "회의 끝! 근데 계획은 추후 공유할게요.",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "일단 감으로 가봅시다.",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "전술 설계 마스터의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "INTJ 생존 시뮬레이션 결과",
+        "winMessage": "‘당신 플랜을 이렇게 보강해봤어요’라는 말과 함께 백업 전략까지 제시하면 완벽 클리어.",
+        "loseMessage": "전술 설계 마스터과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ESFP": {
@@ -777,6 +1833,90 @@
       "accentText": "#7C3AED",
       "headerGradient": "linear-gradient(135deg, #A855F7 0%, #8B5CF6 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "경험을 디자인하는 파티 메이커과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ESFP는 즐거움과 새로운 경험에 반응한다. 현장을 반짝이게 만드는 미션을 주면 최고의 MC가 된다.",
+          "options": [
+            {
+              "label": "재미 초대장",
+              "isCorrect": true,
+              "feedback": "첫 멘트부터 흥미로운 이벤트나 체험 요소로 마음을 사로잡는다."
+            },
+            {
+              "label": "참여 몰입 장치",
+              "isCorrect": false,
+              "feedback": "직접 손대볼 수 있는 데모나 체험형 자료를 준비한다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "결과 셀카",
+              "isCorrect": false,
+              "feedback": "성과를 사진, 영상, 스토리 등 눈에 보이는 결과물로 남겨 즉시 공유한다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "경험을 디자인하는 파티 메이커에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 일정표 공백을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "체크리스트 알림이 울리는 모바일 앱",
+              "isCorrect": true,
+              "feedback": "체크리스트 알림이 울리는 모바일 앱이(가) 있어야 경험을 디자인하는 파티 메이커의 강점이 폭발해요."
+            },
+            {
+              "label": "디테일을 챙기는 ISFJ",
+              "isCorrect": false,
+              "feedback": "디테일을 챙기는 ISFJ은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "일정표 공백",
+              "isCorrect": false,
+              "feedback": "일정표 공백은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "경험을 디자인하는 파티 메이커에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "이걸 이벤트처럼 만들어보면 어떨까요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "대충 해도 다 알아서 굴러갈 거예요.",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "일단 저질러놓고 보죠!",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "경험을 디자인하는 파티 메이커의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ESFP 생존 시뮬레이션 결과",
+        "winMessage": "레전드였다는 감탄과 함께 인증샷을 남기면 미션 성공.",
+        "loseMessage": "경험을 디자인하는 파티 메이커과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ESFJ": {
@@ -844,6 +1984,90 @@
       "accentText": "#15803D",
       "headerGradient": "linear-gradient(135deg, #22C55E 0%, #16A34A 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "관계를 다지는 케어 매니저과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ESFJ는 사람과 관계를 중심으로 팀을 묶는다. 공동의 이익과 감사 루틴을 챙기면 든든한 파트너가 된다.",
+          "options": [
+            {
+              "label": "공동 이익 강조",
+              "isCorrect": true,
+              "feedback": "모두에게 도움이 되는 방향이라는 메시지를 먼저 전달한다."
+            },
+            {
+              "label": "관계 설계",
+              "isCorrect": false,
+              "feedback": "중요 이해관계자의 니즈를 반영한 커뮤니케이션 플랜을 제안한다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "감사 루틴",
+              "isCorrect": false,
+              "feedback": "정기적으로 고마움을 표현할 방법을 함께 정한다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "관계를 다지는 케어 매니저에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 과도한 책임감을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "감정 노동 후 회복 체크리스트",
+              "isCorrect": true,
+              "feedback": "감정 노동 후 회복 체크리스트이(가) 있어야 관계를 다지는 케어 매니저의 강점이 폭발해요."
+            },
+            {
+              "label": "전략 방향을 제시하는 INTJ",
+              "isCorrect": false,
+              "feedback": "전략 방향을 제시하는 INTJ은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "과도한 책임감",
+              "isCorrect": false,
+              "feedback": "과도한 책임감은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "관계를 다지는 케어 매니저에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "이 결정이 모두에게 어떤 도움이 될지 함께 볼까요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "바쁘니까 이건 생략해도 되죠?",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "오늘은 대충 마무리합시다.",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "관계를 다지는 케어 매니저의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ESFJ 생존 시뮬레이션 결과",
+        "winMessage": "팀의 미소와 고마운 메시지가 돌아오면 화합 미션 완료.",
+        "loseMessage": "관계를 다지는 케어 매니저과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ESTP": {
@@ -911,6 +2135,90 @@
       "accentText": "#C2410C",
       "headerGradient": "linear-gradient(135deg, #F97316 0%, #EA580C 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "순간 결단 액션 리더과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ESTP는 현장 데이터를 근거로 즉시 움직인다. 속도를 맞추고 리스크를 함께 계산하면 짜릿한 동맹이 된다.",
+          "options": [
+            {
+              "label": "속도 매칭",
+              "isCorrect": true,
+              "feedback": "짧고 굵은 브리핑으로 바로 본론에 진입한다."
+            },
+            {
+              "label": "베팅 옵션",
+              "isCorrect": false,
+              "feedback": "리스크 수준별 세 가지 시나리오를 제시해 선택지를 준다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "즉시 실행 버튼",
+              "isCorrect": false,
+              "feedback": "오늘 바로 실행할 수 있는 액션 하나를 정해 스위치를 누른다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "순간 결단 액션 리더에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 후폭풍 관리 부족을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "실시간 KPI 보드",
+              "isCorrect": true,
+              "feedback": "실시간 KPI 보드이(가) 있어야 순간 결단 액션 리더의 강점이 폭발해요."
+            },
+            {
+              "label": "리스크를 조율할 INFJ 혹은 INTJ",
+              "isCorrect": false,
+              "feedback": "리스크를 조율할 INFJ 혹은 INTJ은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "후폭풍 관리 부족",
+              "isCorrect": false,
+              "feedback": "후폭풍 관리 부족은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "순간 결단 액션 리더에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "지금 가장 짜릿한 선택지는 무엇일까요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "야! 그냥 질러봅시다. 나중에 생각하죠!",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "이건 대충 넘어가도 되죠?",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "순간 결단 액션 리더의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ESTP 생존 시뮬레이션 결과",
+        "winMessage": "‘지금 바로 달리자!’라는 답을 이끌어내면 베팅 성공.",
+        "loseMessage": "순간 결단 액션 리더과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ESTJ": {
@@ -978,6 +2286,90 @@
       "accentText": "#9A3412",
       "headerGradient": "linear-gradient(135deg, #EA580C 0%, #C2410C 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "결과 중심 현장 지휘관과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ESTJ는 실행과 결과를 중시한다. 숫자와 책임 구조가 탄탄하면 바로 사인을 얻는다.",
+          "options": [
+            {
+              "label": "준비된 자료",
+              "isCorrect": true,
+              "feedback": "숫자와 체크리스트로 구성된 요약 보고서를 먼저 제시한다."
+            },
+            {
+              "label": "실행 모드 전환",
+              "isCorrect": false,
+              "feedback": "역할과 데드라인을 명확하게 배분해 팀을 세팅한다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "피드백 창구",
+              "isCorrect": false,
+              "feedback": "성과 공유 루프와 이슈 보고 라인을 문서로 명문화한다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "결과 중심 현장 지휘관에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 과열된 통제 욕구을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "한눈에 보이는 HQ 진행 보드",
+              "isCorrect": true,
+              "feedback": "한눈에 보이는 HQ 진행 보드이(가) 있어야 결과 중심 현장 지휘관의 강점이 폭발해요."
+            },
+            {
+              "label": "위험 감수 아이디어를 주는 ENTP",
+              "isCorrect": false,
+              "feedback": "위험 감수 아이디어를 주는 ENTP은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "과열된 통제 욕구",
+              "isCorrect": false,
+              "feedback": "과열된 통제 욕구은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "결과 중심 현장 지휘관에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "결정나면 바로 실행할 수 있게 체크리스트를 준비했습니다.",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "일단 결론부터 말할게요. 내일 다시 얘기해요.",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "그냥 네가 알아서 해.",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "결과 중심 현장 지휘관의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ESTJ 생존 시뮬레이션 결과",
+        "winMessage": "예상 리스크 대응표까지 제출하면 계획 승인 확률 99%.",
+        "loseMessage": "결과 중심 현장 지휘관과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ISFP": {
@@ -1045,6 +2437,90 @@
       "accentText": "#BE123C",
       "headerGradient": "linear-gradient(135deg, #FB7185 0%, #F43F5E 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "감성과 감각의 아티스트과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ISFP는 조용하지만 섬세한 감각으로 팀에 따뜻함을 더한다. 존중과 자율을 바탕으로 작품을 만들자.",
+          "options": [
+            {
+              "label": "가치 존중 선언",
+              "isCorrect": true,
+              "feedback": "협업 시작 전에 그의 취향과 철학을 존중한다는 메시지를 전한다."
+            },
+            {
+              "label": "공동 작품 구상",
+              "isCorrect": false,
+              "feedback": "함께 만들 결과물의 무드보드를 공유하며 느낌을 맞춘다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "역할 경계 설정",
+              "isCorrect": false,
+              "feedback": "각자의 영역을 존중하는 협업 룰을 합의한다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "감성과 감각의 아티스트에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 날선 피드백을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "감정과 작업을 기록하는 아트 로그",
+              "isCorrect": true,
+              "feedback": "감정과 작업을 기록하는 아트 로그이(가) 있어야 감성과 감각의 아티스트의 강점이 폭발해요."
+            },
+            {
+              "label": "일정을 정리해주는 ISFJ",
+              "isCorrect": false,
+              "feedback": "일정을 정리해주는 ISFJ은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "날선 피드백",
+              "isCorrect": false,
+              "feedback": "날선 피드백은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "감성과 감각의 아티스트에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "이번 작업에서 꼭 지키고 싶은 무드는 무엇인가요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "회의는 여기서 끝! 세부 계획은 생략할게요.",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "그냥 마음 가는 대로 해보죠?",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "감성과 감각의 아티스트의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ISFP 생존 시뮬레이션 결과",
+        "winMessage": "완성된 결과에 우리의 색이 묻어났다는 감탄을 끌어내면 클리어.",
+        "loseMessage": "감성과 감각의 아티스트과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ISFJ": {
@@ -1112,6 +2588,90 @@
       "accentText": "#1D4ED8",
       "headerGradient": "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "숨은 시스템 수호자과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ISFJ는 팀의 기반을 지키는 수호자다. 약속을 정확히 지키고 감사 표현을 잊지 않으면 평생 동맹이 된다.",
+          "options": [
+            {
+              "label": "신뢰 계약",
+              "isCorrect": true,
+              "feedback": "약속을 지키겠다는 근거와 일정표를 명확히 제시한다."
+            },
+            {
+              "label": "시스템 존중",
+              "isCorrect": false,
+              "feedback": "기존 프로세스를 존중하며 필요한 개선 포인트를 정중히 제안한다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "안정 보고",
+              "isCorrect": false,
+              "feedback": "진행 상황을 주기적으로 공유해 불안을 사전에 없앤다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "숨은 시스템 수호자에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 과한 책임감으로 인한 번아웃을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "업무 히스토리를 시각화한 타임라인",
+              "isCorrect": true,
+              "feedback": "업무 히스토리를 시각화한 타임라인이(가) 있어야 숨은 시스템 수호자의 강점이 폭발해요."
+            },
+            {
+              "label": "새로운 관점을 던지는 ENFP",
+              "isCorrect": false,
+              "feedback": "새로운 관점을 던지는 ENFP은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "과한 책임감으로 인한 번아웃",
+              "isCorrect": false,
+              "feedback": "과한 책임감으로 인한 번아웃은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "숨은 시스템 수호자에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "늘 지켜온 체크리스트가 있으면 공유 부탁드려요.",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "굳이 보고할 필요 없겠죠?",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "일단 즐기고 나중에 수습하죠!",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "숨은 시스템 수호자의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ISFJ 생존 시뮬레이션 결과",
+        "winMessage": "일관된 보고와 작은 감사 메시지를 쌓으면 ISFJ의 신뢰 게이지가 꽉 찬다.",
+        "loseMessage": "숨은 시스템 수호자과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ISTP": {
@@ -1179,6 +2739,90 @@
       "accentText": "#0F766E",
       "headerGradient": "linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)",
       "headerText": "#FFFFFF"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "현장형 문제 해결사과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ISTP는 재밌는 문제를 직접 만져볼 때 몰입한다. 자유로운 해결권과 빠른 피드백을 주면 전설적인 해결사가 된다.",
+          "options": [
+            {
+              "label": "도전 제시",
+              "isCorrect": true,
+              "feedback": "실전 문제를 미션처럼 던지고 흥미로운 장비나 데이터를 곁들인다."
+            },
+            {
+              "label": "자유 재량",
+              "isCorrect": false,
+              "feedback": "해결 방법에 최대한의 자유도를 주고 필요한 자원만 연결한다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "즉시 피드백",
+              "isCorrect": false,
+              "feedback": "결과가 나오면 바로 인정하고, 실패도 함께 리빌드한다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "현장형 문제 해결사에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 반복 문서 작성에 대한 지루함을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "실험 과정을 자동으로 기록하는 로그 툴",
+              "isCorrect": true,
+              "feedback": "실험 과정을 자동으로 기록하는 로그 툴이(가) 있어야 현장형 문제 해결사의 강점이 폭발해요."
+            },
+            {
+              "label": "체계를 잡아주는 ISTJ",
+              "isCorrect": false,
+              "feedback": "체계를 잡아주는 ISTJ은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "반복 문서 작성에 대한 지루함",
+              "isCorrect": false,
+              "feedback": "반복 문서 작성에 대한 지루함은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "현장형 문제 해결사에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "지금 바로 테스트해볼 방법이 있을까요?",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "내가 알아서 정리했다 치고 넘어가죠.",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "다음 주에 기억나면 말해줄게요.",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "현장형 문제 해결사의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ISTP 생존 시뮬레이션 결과",
+        "winMessage": "역시 당신 아니면 안 됐다는 한마디로 레벨업.",
+        "loseMessage": "현장형 문제 해결사과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   },
   "ISTJ": {
@@ -1246,6 +2890,90 @@
       "accentText": "#1E293B",
       "headerGradient": "linear-gradient(135deg, #475569 0%, #1F2937 100%)",
       "headerText": "#F8FAFC"
+    },
+    "quiz": {
+      "cards": [
+        {
+          "round": "ROUND 1",
+          "title": "전략 오프닝",
+          "prompt": "근거를 수집하는 현실 검증가과(와)의 첫 라운드! 어떤 액션으로 시작할까?",
+          "hint": "ISTJ는 검증된 절차와 근거를 중시한다. 데이터와 절차를 존중하면 든든한 신뢰를 얻는다.",
+          "options": [
+            {
+              "label": "자료 인증",
+              "isCorrect": true,
+              "feedback": "모든 제안에 사용할 수 있는 근거와 사례를 정리해 첨부한다."
+            },
+            {
+              "label": "절차 존중",
+              "isCorrect": false,
+              "feedback": "현재 프로세스를 유지하면서 개선 포인트를 조심스레 제안한다. — 아직은 타이밍이 아니에요."
+            },
+            {
+              "label": "시범 운영",
+              "isCorrect": false,
+              "feedback": "작은 파일럿으로 리스크를 줄이고 효과를 증명한다. — 마무리 단계용 카드입니다."
+            }
+          ],
+          "success": "완벽한 스타트!",
+          "failure": "시작부터 삐끗했어요. 타이밍을 다시 조율해요."
+        },
+        {
+          "round": "ROUND 2",
+          "title": "파워 아이템 세팅",
+          "prompt": "근거를 수집하는 현실 검증가에게 가장 필요한 지원 장비는?",
+          "hint": "약점을 메워줄 장비를 선택하세요. 예측 불가한 변수을(를) 보완해야 합니다.",
+          "options": [
+            {
+              "label": "체크리스트 자동화 앱",
+              "isCorrect": true,
+              "feedback": "체크리스트 자동화 앱이(가) 있어야 근거를 수집하는 현실 검증가의 강점이 폭발해요."
+            },
+            {
+              "label": "새 아이디어를 던지는 ENFP",
+              "isCorrect": false,
+              "feedback": "새 아이디어를 던지는 ENFP은(는) 동료예요. 장비가 아닙니다."
+            },
+            {
+              "label": "예측 불가한 변수",
+              "isCorrect": false,
+              "feedback": "예측 불가한 변수은(는) 관리해야 할 약점이에요."
+            }
+          ],
+          "success": "장비 세팅 완료!",
+          "failure": "장비 선택을 다시 생각해봐요."
+        },
+        {
+          "round": "ROUND 3",
+          "title": "클로징 멘트",
+          "prompt": "근거를 수집하는 현실 검증가에게 마지막으로 건넬 멘트는?",
+          "hint": "감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.",
+          "options": [
+            {
+              "label": "관련 규정과 데이터를 정리해왔습니다.",
+              "isCorrect": true,
+              "feedback": "이 멘트가 바로 신뢰를 높이는 한마디예요."
+            },
+            {
+              "label": "일단 결과는 운에 맡겨요.",
+              "isCorrect": false,
+              "feedback": "이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다."
+            },
+            {
+              "label": "조금 대충해도 괜찮겠죠?",
+              "isCorrect": false,
+              "feedback": "상대에게 부담만 주는 멘트입니다."
+            }
+          ],
+          "success": "완벽한 마무리!",
+          "failure": "근거를 수집하는 현실 검증가의 감정선과 맞지 않는 마무리였어요."
+        }
+      ],
+      "summary": {
+        "title": "ISTJ 생존 시뮬레이션 결과",
+        "winMessage": "파일럿 성공 데이터를 바탕으로 정식 전환을 제안하면 안심하고 승낙한다.",
+        "loseMessage": "근거를 수집하는 현실 검증가과(와)의 동맹을 위해 전략을 다시 세워보세요."
+      }
     }
   }
 };
@@ -1253,6 +2981,8 @@
     const selectorEl = document.getElementById("mbtiSelector");
     const resultsEl = document.getElementById("resultsArea");
     const buttonMap = {};
+
+    prepareQuizData();
 
     MBTI_SEQUENCE.forEach((type) => {
       if (!MBTI_DATA[type]) {
@@ -1438,6 +3168,367 @@
           </div>
         </div>
       `;
+      renderQuiz(type, data);
+    }
+
+
+    function prepareQuizData() {
+      const fallbackPhrases = [
+        '일단 대충 하자는 말은 통하지 않아요.',
+        '감정선을 무시하면 바로 신뢰가 떨어집니다.',
+        '보고 생략 제안은 위험합니다.',
+        '혼자 결정하고 통보하면 관계가 금 가요.',
+        '기록을 건너뛰면 다음 라운드가 무너집니다.',
+        '느낌대로 하기 전에 근거가 필요해요.',
+        '대충 넘어가자는 말은 최악의 선택입니다.',
+        '후폭풍을 무시하면 곤란해집니다.',
+        '계획 생략 제안은 거절당합니다.',
+        '감정 케어 없이 밀어붙이면 관계가 멀어져요.'
+      ];
+      let cursor = 0;
+      Object.values(MBTI_DATA).forEach((info) => {
+        if (info.quiz && Array.isArray(info.quiz.cards)) {
+          return;
+        }
+        const moves = Array.isArray(info.battle?.moves) ? info.battle.moves : [];
+        const power = info.powerItems || {};
+        const quick = Array.isArray(info.quickPhrases) ? info.quickPhrases : [];
+        const move1 = moves[0] || { name: '선제 행동', detail: info.battle?.title || '' };
+        const move2 = moves[1] || moves[0] || { name: '타이밍 조율', detail: info.battle?.intro || '' };
+        const move3 = moves[2] || moves[1] || moves[0] || { name: '마무리 협상', detail: info.battle?.finale || '' };
+        const support = power.support || '기록 가능한 지원 장비';
+        const ally = power.ally || '믿을 만한 동료';
+        const weakSpot = power.weakSpot || '숨은 약점';
+        const phrase = quick[0] || info.battle?.finale || '다음 라운드를 위한 약속을 잡아요.';
+        const wrong1 = fallbackPhrases[cursor % fallbackPhrases.length];
+        const wrong2 = fallbackPhrases[(cursor + 1) % fallbackPhrases.length];
+        cursor += 2;
+
+        info.quiz = {
+          cards: [
+            {
+              round: 'ROUND 1',
+              title: '전략 오프닝',
+              prompt: `${info.nickname}과(와)의 첫 라운드! 어떤 액션으로 시작할까?`,
+              hint: info.battle?.intro || '',
+              options: [
+                { label: move1.name, isCorrect: true, feedback: move1.detail },
+                { label: move2.name, isCorrect: false, feedback: `${move2.detail} — 타이밍을 조금 늦춰보자.` },
+                { label: move3.name, isCorrect: false, feedback: `${move3.detail} — 마무리 단계에 어울립니다.` }
+              ],
+              success: '완벽한 스타트!',
+              failure: '시작부터 삐끗했어요. 타이밍을 다시 조율해요.'
+            },
+            {
+              round: 'ROUND 2',
+              title: '파워 아이템 세팅',
+              prompt: `${info.nickname}에게 가장 필요한 지원 장비는?`,
+              hint: `약점을 보완할 장비를 골라야 합니다. ${weakSpot}을(를) 커버하세요.`,
+              options: [
+                { label: support, isCorrect: true, feedback: `${support}이(가) 있어야 ${info.nickname}의 강점이 폭발해요.` },
+                { label: ally, isCorrect: false, feedback: `${ally}은(는) 최고의 동료지만 장비는 아니에요.` },
+                { label: weakSpot, isCorrect: false, feedback: `${weakSpot}은(는) 관리해야 할 약점이에요.` }
+              ],
+              success: '장비 세팅 완료!',
+              failure: '장비 선택을 다시 생각해봐요.'
+            },
+            {
+              round: 'ROUND 3',
+              title: '클로징 멘트',
+              prompt: `${info.nickname}에게 마지막으로 건넬 멘트는?`,
+              hint: '감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.',
+              options: [
+                { label: phrase, isCorrect: true, feedback: '이 멘트가 바로 신뢰를 높이는 한마디예요.' },
+                { label: wrong1, isCorrect: false, feedback: '이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다.' },
+                { label: wrong2, isCorrect: false, feedback: '상대에게 부담만 주는 멘트입니다.' }
+              ],
+              success: '완벽한 마무리!',
+              failure: `${info.nickname}의 감정선과 맞지 않는 마무리였어요.`
+            }
+          ],
+          summary: {
+            title: `${info.nickname} 생존 시뮬레이션 결과`,
+            winMessage: info.battle?.finale || '완벽한 마무리! 함께 다음 스테이지로 전진합니다.',
+            loseMessage: `${info.nickname}과(와)의 동맹을 위해 전략을 다시 세워보세요.`
+          }
+        };
+      });
+    }
+
+    function renderQuiz(type, data) {
+      if (!data.quiz || !Array.isArray(data.quiz.cards) || data.quiz.cards.length === 0) {
+        return;
+      }
+
+      const existing = resultsEl.querySelector(`[data-quiz-root='${type}']`);
+      if (existing) {
+        existing.remove();
+      }
+
+      const section = document.createElement('section');
+      section.className = 'mt-16';
+      section.dataset.quizRoot = type;
+      section.style.setProperty('--quiz-accent', data.theme.accent);
+      section.style.setProperty('--quiz-accent-text', data.theme.accentText);
+      section.innerHTML = `
+        <div class='flex flex-col gap-4 md:flex-row md:items-end md:justify-between'>
+          <div>
+            <h3 class='text-3xl font-bold text-slate-100'>대결 시뮬레이션</h3>
+            <p class='mt-2 text-sm text-slate-300'>세 장의 카드를 뒤집으며 ${type} 미션을 클리어하세요.</p>
+          </div>
+          <div class='flex gap-3'>
+            <div class='quiz-stat-card'>
+              <span class='quiz-stat-label'>Score</span>
+              <div class='quiz-stat-value'>
+                <span data-role='score'>0</span>
+                <span class='quiz-stat-total'>/${data.quiz.cards.length}</span>
+              </div>
+            </div>
+            <div class='quiz-stat-card'>
+              <span class='quiz-stat-label'>Round</span>
+              <div class='quiz-stat-value'>
+                <span data-role='progress'>1</span>
+                <span class='quiz-stat-total'>/${data.quiz.cards.length}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='mt-4 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300'>${data.battle?.intro || ''}</div>
+        <div class='relative mt-8 flex justify-center'>
+          <div class='quiz-stack' data-role='card-stack'></div>
+        </div>
+        <div class='quiz-summary hidden mt-10 mx-auto max-w-2xl rounded-3xl border border-white/10 bg-white/5 p-8 text-center' data-role='summary'>
+          <h4 class='text-2xl font-bold text-slate-100' data-role='summary-title'></h4>
+          <p class='mt-4 text-sm text-slate-300' data-role='summary-message'></p>
+          <p class='mt-2 text-xs uppercase tracking-[0.35em] text-slate-500' data-role='summary-note'></p>
+          <button type='button' class='quiz-restart hidden' data-role='restart'>다시 도전하기</button>
+        </div>
+      `;
+
+      resultsEl.appendChild(section);
+      initQuizDeck(section, data.quiz, type);
+    }
+
+    function initQuizDeck(section, quiz, type) {
+      const stackEl = section.querySelector('[data-role="card-stack"]');
+      const scoreEl = section.querySelector('[data-role="score"]');
+      const progressEl = section.querySelector('[data-role="progress"]');
+      const summaryEl = section.querySelector('[data-role="summary"]');
+      const summaryTitleEl = summaryEl.querySelector('[data-role="summary-title"]');
+      const summaryMessageEl = summaryEl.querySelector('[data-role="summary-message"]');
+      const summaryNoteEl = summaryEl.querySelector('[data-role="summary-note"]');
+      const restartBtn = summaryEl.querySelector('[data-role="restart"]');
+
+      stackEl.innerHTML = '';
+      summaryEl.classList.add('hidden');
+      summaryTitleEl.textContent = '';
+      summaryMessageEl.textContent = '';
+      summaryNoteEl.textContent = '';
+
+      if (restartBtn) {
+        restartBtn.classList.add('hidden');
+        restartBtn.onclick = () => setActiveType(type);
+      }
+
+      let current = 0;
+      let score = 0;
+      const total = quiz.cards.length;
+
+      scoreEl.textContent = '0';
+      progressEl.textContent = '1';
+
+      const cards = quiz.cards.map((card, index) => {
+        const cardEl = buildQuizCardElement(card, index, total);
+        cardEl.style.zIndex = String(total - index);
+        stackEl.appendChild(cardEl);
+        return cardEl;
+      });
+
+      const updateProgress = () => {
+        progressEl.textContent = String(Math.min(current + 1, total));
+      };
+
+      const showSummary = () => {
+        summaryEl.classList.remove('hidden');
+        summaryTitleEl.textContent = quiz.summary.title;
+        if (score === total) {
+          summaryMessageEl.textContent = quiz.summary.winMessage;
+          summaryNoteEl.textContent = '올킬! 모든 라운드를 완벽하게 클리어했습니다.';
+        } else if (score === 0) {
+          summaryMessageEl.textContent = quiz.summary.loseMessage;
+          summaryNoteEl.textContent = '다음엔 초반 전략부터 다시 세팅해보세요.';
+        } else if (score >= Math.ceil(total / 2)) {
+          summaryMessageEl.textContent = quiz.summary.winMessage;
+          summaryNoteEl.textContent = `총 ${total}라운드 중 ${score}개 성공. 한 번 더 도전하면 완벽에 가까워요.`;
+        } else {
+          summaryMessageEl.textContent = quiz.summary.loseMessage;
+          summaryNoteEl.textContent = `총 ${total}라운드 중 ${score}개 성공. 전략을 재정비하고 다시 도전하세요.`;
+        }
+        if (restartBtn) {
+          restartBtn.classList.remove('hidden');
+        }
+      };
+
+      const handleOption = (cardEl, optionBtn) => {
+        if (cardEl.dataset.locked === 'true') {
+          return;
+        }
+        cardEl.dataset.locked = 'true';
+
+        const isCorrect = optionBtn.dataset.correct === 'true';
+        if (isCorrect) {
+          score += 1;
+        }
+
+        cardEl.querySelectorAll('.quiz-option').forEach((btn) => {
+          btn.disabled = true;
+          if (btn !== optionBtn) {
+            btn.classList.add('quiz-option-disabled');
+          }
+          if (btn.dataset.correct === 'true' && !isCorrect) {
+            btn.classList.add('quiz-option-correct');
+          }
+        });
+
+        optionBtn.classList.add(isCorrect ? 'quiz-option-correct' : 'quiz-option-wrong');
+
+        const badgeEl = cardEl.querySelector('[data-role="result-badge"]');
+        const resultTextEl = cardEl.querySelector('[data-role="result-text"]');
+        const resultFeedbackEl = cardEl.querySelector('[data-role="result-feedback"]');
+        cardEl.querySelector('.quiz-card-inner').classList.add('flipped');
+
+        badgeEl.textContent = isCorrect ? cardEl.dataset.success : cardEl.dataset.failure;
+        badgeEl.classList.remove('result-success', 'result-fail');
+        badgeEl.classList.add(isCorrect ? 'result-success' : 'result-fail');
+        resultTextEl.textContent = optionBtn.textContent.trim();
+        resultFeedbackEl.textContent = optionBtn.dataset.feedback;
+
+        scoreEl.textContent = String(score);
+      };
+
+      const handleNext = (cardEl) => {
+        if (cardEl.dataset.locked !== 'true') {
+          return;
+        }
+        cardEl.classList.remove('active');
+        cardEl.classList.add('completed');
+        current += 1;
+
+        if (current < total) {
+          cards[current].classList.add('active');
+          updateProgress();
+        } else {
+          progressEl.textContent = String(total);
+          showSummary();
+        }
+      };
+
+      cards.forEach((cardEl) => {
+        cardEl.querySelectorAll('.quiz-option').forEach((btn) => {
+          btn.addEventListener('click', () => handleOption(cardEl, btn));
+        });
+        const nextBtn = cardEl.querySelector('[data-next]');
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => handleNext(cardEl));
+        }
+      });
+
+      if (cards[0]) {
+        cards[0].classList.add('active');
+      }
+
+      updateProgress();
+    }
+
+    function buildQuizCardElement(card, index, total) {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'quiz-card';
+      if (index === 0) {
+        cardEl.classList.add('active');
+      }
+      cardEl.dataset.index = String(index);
+      cardEl.dataset.success = card.success;
+      cardEl.dataset.failure = card.failure;
+
+      const inner = document.createElement('div');
+      inner.className = 'quiz-card-inner';
+
+      const front = document.createElement('div');
+      front.className = 'quiz-card-face quiz-card-front';
+
+      const roundBadge = document.createElement('span');
+      roundBadge.className = 'quiz-round';
+      roundBadge.textContent = card.round;
+      front.appendChild(roundBadge);
+
+      const titleEl = document.createElement('h4');
+      titleEl.className = 'text-2xl font-semibold text-slate-100';
+      titleEl.textContent = card.title;
+      front.appendChild(titleEl);
+
+      const promptEl = document.createElement('p');
+      promptEl.className = 'mt-2 text-sm text-slate-200';
+      promptEl.textContent = card.prompt;
+      front.appendChild(promptEl);
+
+      if (card.hint) {
+        const hintEl = document.createElement('p');
+        hintEl.className = 'quiz-hint';
+        hintEl.textContent = card.hint;
+        front.appendChild(hintEl);
+      }
+
+      const optionsWrap = document.createElement('div');
+      optionsWrap.className = 'mt-6 flex flex-col gap-3';
+      shuffleArray(card.options || []).forEach((option) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'quiz-option';
+        btn.dataset.correct = option.isCorrect ? 'true' : 'false';
+        btn.dataset.feedback = option.feedback;
+        btn.textContent = option.label;
+        optionsWrap.appendChild(btn);
+      });
+      front.appendChild(optionsWrap);
+
+      const back = document.createElement('div');
+      back.className = 'quiz-card-face quiz-card-back';
+
+      const badgeEl = document.createElement('div');
+      badgeEl.className = 'result-badge';
+      badgeEl.setAttribute('data-role', 'result-badge');
+      back.appendChild(badgeEl);
+
+      const resultTitle = document.createElement('h5');
+      resultTitle.className = 'text-xl font-semibold text-slate-100';
+      resultTitle.setAttribute('data-role', 'result-text');
+      back.appendChild(resultTitle);
+
+      const feedbackEl = document.createElement('p');
+      feedbackEl.className = 'mt-3 text-sm text-slate-300';
+      feedbackEl.setAttribute('data-role', 'result-feedback');
+      back.appendChild(feedbackEl);
+
+      const nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.className = 'mt-6 inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/10 px-5 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/20';
+      nextBtn.setAttribute('data-next', 'true');
+      nextBtn.textContent = index === total - 1 ? '결과 보기' : '다음 카드';
+      back.appendChild(nextBtn);
+
+      inner.appendChild(front);
+      inner.appendChild(back);
+      cardEl.appendChild(inner);
+      return cardEl;
+    }
+
+    function shuffleArray(arr) {
+      const copy = arr.slice();
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
     }
 
     const urlParams = new URLSearchParams(window.location.search);

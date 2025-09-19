@@ -238,6 +238,198 @@
       }
     }
 
+  
+    .quiz-stack {
+      position: relative;
+      width: min(100%, 520px);
+      min-height: 390px;
+    }
+    .quiz-card {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateY(32px) scale(0.94);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .quiz-card.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .quiz-card.completed {
+      opacity: 0;
+      transform: translateY(-48px) scale(0.85);
+    }
+    .quiz-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+    }
+    .quiz-card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .quiz-card-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 32px 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 25px 60px rgba(2, 6, 23, 0.35);
+      backface-visibility: hidden;
+    }
+    .quiz-card-back {
+      transform: rotateY(180deg);
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+    .quiz-round {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.45rem 0.95rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(148, 163, 184, 0.12);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #cbd5f5;
+    }
+    .quiz-hint {
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
+      color: #94A3B8;
+      background: rgba(148, 163, 184, 0.12);
+      border-radius: 16px;
+      padding: 0.85rem 1rem;
+      line-height: 1.6;
+    }
+    .quiz-option {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(15, 23, 42, 0.6);
+      color: #E2E8F0;
+      font-weight: 600;
+      text-align: left;
+      padding: 14px 18px;
+      transition: all 0.2s ease;
+    }
+    .quiz-option:hover {
+      border-color: var(--quiz-accent, rgba(148, 163, 184, 0.45));
+      background: rgba(15, 118, 110, 0.18);
+      transform: translateY(-2px);
+    }
+    .quiz-option:disabled {
+      cursor: not-allowed;
+    }
+    .quiz-option-correct {
+      border-color: rgba(34, 197, 94, 0.65) !important;
+      background: rgba(34, 197, 94, 0.2) !important;
+      color: #bbf7d0 !important;
+    }
+    .quiz-option-wrong {
+      border-color: rgba(248, 113, 113, 0.6) !important;
+      background: rgba(248, 113, 113, 0.18) !important;
+      color: #fecaca !important;
+    }
+    .quiz-option-disabled {
+      opacity: 0.5;
+    }
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.4rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+    .result-success {
+      border-color: rgba(34, 197, 94, 0.45);
+      background: rgba(34, 197, 94, 0.14);
+      color: #bbf7d0;
+    }
+    .result-fail {
+      border-color: rgba(248, 113, 113, 0.4);
+      background: rgba(248, 113, 113, 0.14);
+      color: #fecaca;
+    }
+    .quiz-stat-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 130px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(12px);
+    }
+    .quiz-stat-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #94A3B8;
+    }
+    .quiz-stat-value {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      color: #E2E8F0;
+      font-weight: 700;
+    }
+    .quiz-stat-total {
+      font-size: 0.8rem;
+      color: #64748B;
+    }
+    .quiz-summary.hidden {
+      display: none;
+    }
+    .quiz-restart {
+      margin-top: 1.6rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1.6rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: transparent;
+      color: #E2E8F0;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+    .quiz-restart:hover {
+      border-color: rgba(148, 163, 184, 0.65);
+      background: rgba(148, 163, 184, 0.18);
+    }
+    @media (max-width: 640px) {
+      .quiz-card-face {
+        padding: 24px 20px;
+        gap: 16px;
+      }
+      .quiz-stack {
+        min-height: 340px;
+      }
+      .quiz-stat-card {
+        min-width: 110px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -372,6 +564,8 @@
     const selectorEl = document.getElementById("mbtiSelector");
     const resultsEl = document.getElementById("resultsArea");
     const buttonMap = {};
+
+    prepareQuizData();
 
     MBTI_SEQUENCE.forEach((type) => {
       if (!MBTI_DATA[type]) {
@@ -557,6 +751,367 @@
           </div>
         </div>
       `;
+      renderQuiz(type, data);
+    }
+
+
+    function prepareQuizData() {
+      const fallbackPhrases = [
+        '일단 대충 하자는 말은 통하지 않아요.',
+        '감정선을 무시하면 바로 신뢰가 떨어집니다.',
+        '보고 생략 제안은 위험합니다.',
+        '혼자 결정하고 통보하면 관계가 금 가요.',
+        '기록을 건너뛰면 다음 라운드가 무너집니다.',
+        '느낌대로 하기 전에 근거가 필요해요.',
+        '대충 넘어가자는 말은 최악의 선택입니다.',
+        '후폭풍을 무시하면 곤란해집니다.',
+        '계획 생략 제안은 거절당합니다.',
+        '감정 케어 없이 밀어붙이면 관계가 멀어져요.'
+      ];
+      let cursor = 0;
+      Object.values(MBTI_DATA).forEach((info) => {
+        if (info.quiz && Array.isArray(info.quiz.cards)) {
+          return;
+        }
+        const moves = Array.isArray(info.battle?.moves) ? info.battle.moves : [];
+        const power = info.powerItems || {};
+        const quick = Array.isArray(info.quickPhrases) ? info.quickPhrases : [];
+        const move1 = moves[0] || { name: '선제 행동', detail: info.battle?.title || '' };
+        const move2 = moves[1] || moves[0] || { name: '타이밍 조율', detail: info.battle?.intro || '' };
+        const move3 = moves[2] || moves[1] || moves[0] || { name: '마무리 협상', detail: info.battle?.finale || '' };
+        const support = power.support || '기록 가능한 지원 장비';
+        const ally = power.ally || '믿을 만한 동료';
+        const weakSpot = power.weakSpot || '숨은 약점';
+        const phrase = quick[0] || info.battle?.finale || '다음 라운드를 위한 약속을 잡아요.';
+        const wrong1 = fallbackPhrases[cursor % fallbackPhrases.length];
+        const wrong2 = fallbackPhrases[(cursor + 1) % fallbackPhrases.length];
+        cursor += 2;
+
+        info.quiz = {
+          cards: [
+            {
+              round: 'ROUND 1',
+              title: '전략 오프닝',
+              prompt: `${info.nickname}과(와)의 첫 라운드! 어떤 액션으로 시작할까?`,
+              hint: info.battle?.intro || '',
+              options: [
+                { label: move1.name, isCorrect: true, feedback: move1.detail },
+                { label: move2.name, isCorrect: false, feedback: `${move2.detail} — 타이밍을 조금 늦춰보자.` },
+                { label: move3.name, isCorrect: false, feedback: `${move3.detail} — 마무리 단계에 어울립니다.` }
+              ],
+              success: '완벽한 스타트!',
+              failure: '시작부터 삐끗했어요. 타이밍을 다시 조율해요.'
+            },
+            {
+              round: 'ROUND 2',
+              title: '파워 아이템 세팅',
+              prompt: `${info.nickname}에게 가장 필요한 지원 장비는?`,
+              hint: `약점을 보완할 장비를 골라야 합니다. ${weakSpot}을(를) 커버하세요.`,
+              options: [
+                { label: support, isCorrect: true, feedback: `${support}이(가) 있어야 ${info.nickname}의 강점이 폭발해요.` },
+                { label: ally, isCorrect: false, feedback: `${ally}은(는) 최고의 동료지만 장비는 아니에요.` },
+                { label: weakSpot, isCorrect: false, feedback: `${weakSpot}은(는) 관리해야 할 약점이에요.` }
+              ],
+              success: '장비 세팅 완료!',
+              failure: '장비 선택을 다시 생각해봐요.'
+            },
+            {
+              round: 'ROUND 3',
+              title: '클로징 멘트',
+              prompt: `${info.nickname}에게 마지막으로 건넬 멘트는?`,
+              hint: '감정선과 전략을 동시에 잡을 수 있는 말을 고르세요.',
+              options: [
+                { label: phrase, isCorrect: true, feedback: '이 멘트가 바로 신뢰를 높이는 한마디예요.' },
+                { label: wrong1, isCorrect: false, feedback: '이 멘트는 분위기를 깨고 신뢰를 떨어뜨립니다.' },
+                { label: wrong2, isCorrect: false, feedback: '상대에게 부담만 주는 멘트입니다.' }
+              ],
+              success: '완벽한 마무리!',
+              failure: `${info.nickname}의 감정선과 맞지 않는 마무리였어요.`
+            }
+          ],
+          summary: {
+            title: `${info.nickname} 생존 시뮬레이션 결과`,
+            winMessage: info.battle?.finale || '완벽한 마무리! 함께 다음 스테이지로 전진합니다.',
+            loseMessage: `${info.nickname}과(와)의 동맹을 위해 전략을 다시 세워보세요.`
+          }
+        };
+      });
+    }
+
+    function renderQuiz(type, data) {
+      if (!data.quiz || !Array.isArray(data.quiz.cards) || data.quiz.cards.length === 0) {
+        return;
+      }
+
+      const existing = resultsEl.querySelector(`[data-quiz-root='${type}']`);
+      if (existing) {
+        existing.remove();
+      }
+
+      const section = document.createElement('section');
+      section.className = 'mt-16';
+      section.dataset.quizRoot = type;
+      section.style.setProperty('--quiz-accent', data.theme.accent);
+      section.style.setProperty('--quiz-accent-text', data.theme.accentText);
+      section.innerHTML = `
+        <div class='flex flex-col gap-4 md:flex-row md:items-end md:justify-between'>
+          <div>
+            <h3 class='text-3xl font-bold text-slate-100'>대결 시뮬레이션</h3>
+            <p class='mt-2 text-sm text-slate-300'>세 장의 카드를 뒤집으며 ${type} 미션을 클리어하세요.</p>
+          </div>
+          <div class='flex gap-3'>
+            <div class='quiz-stat-card'>
+              <span class='quiz-stat-label'>Score</span>
+              <div class='quiz-stat-value'>
+                <span data-role='score'>0</span>
+                <span class='quiz-stat-total'>/${data.quiz.cards.length}</span>
+              </div>
+            </div>
+            <div class='quiz-stat-card'>
+              <span class='quiz-stat-label'>Round</span>
+              <div class='quiz-stat-value'>
+                <span data-role='progress'>1</span>
+                <span class='quiz-stat-total'>/${data.quiz.cards.length}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='mt-4 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300'>${data.battle?.intro || ''}</div>
+        <div class='relative mt-8 flex justify-center'>
+          <div class='quiz-stack' data-role='card-stack'></div>
+        </div>
+        <div class='quiz-summary hidden mt-10 mx-auto max-w-2xl rounded-3xl border border-white/10 bg-white/5 p-8 text-center' data-role='summary'>
+          <h4 class='text-2xl font-bold text-slate-100' data-role='summary-title'></h4>
+          <p class='mt-4 text-sm text-slate-300' data-role='summary-message'></p>
+          <p class='mt-2 text-xs uppercase tracking-[0.35em] text-slate-500' data-role='summary-note'></p>
+          <button type='button' class='quiz-restart hidden' data-role='restart'>다시 도전하기</button>
+        </div>
+      `;
+
+      resultsEl.appendChild(section);
+      initQuizDeck(section, data.quiz, type);
+    }
+
+    function initQuizDeck(section, quiz, type) {
+      const stackEl = section.querySelector('[data-role="card-stack"]');
+      const scoreEl = section.querySelector('[data-role="score"]');
+      const progressEl = section.querySelector('[data-role="progress"]');
+      const summaryEl = section.querySelector('[data-role="summary"]');
+      const summaryTitleEl = summaryEl.querySelector('[data-role="summary-title"]');
+      const summaryMessageEl = summaryEl.querySelector('[data-role="summary-message"]');
+      const summaryNoteEl = summaryEl.querySelector('[data-role="summary-note"]');
+      const restartBtn = summaryEl.querySelector('[data-role="restart"]');
+
+      stackEl.innerHTML = '';
+      summaryEl.classList.add('hidden');
+      summaryTitleEl.textContent = '';
+      summaryMessageEl.textContent = '';
+      summaryNoteEl.textContent = '';
+
+      if (restartBtn) {
+        restartBtn.classList.add('hidden');
+        restartBtn.onclick = () => setActiveType(type);
+      }
+
+      let current = 0;
+      let score = 0;
+      const total = quiz.cards.length;
+
+      scoreEl.textContent = '0';
+      progressEl.textContent = '1';
+
+      const cards = quiz.cards.map((card, index) => {
+        const cardEl = buildQuizCardElement(card, index, total);
+        cardEl.style.zIndex = String(total - index);
+        stackEl.appendChild(cardEl);
+        return cardEl;
+      });
+
+      const updateProgress = () => {
+        progressEl.textContent = String(Math.min(current + 1, total));
+      };
+
+      const showSummary = () => {
+        summaryEl.classList.remove('hidden');
+        summaryTitleEl.textContent = quiz.summary.title;
+        if (score === total) {
+          summaryMessageEl.textContent = quiz.summary.winMessage;
+          summaryNoteEl.textContent = '올킬! 모든 라운드를 완벽하게 클리어했습니다.';
+        } else if (score === 0) {
+          summaryMessageEl.textContent = quiz.summary.loseMessage;
+          summaryNoteEl.textContent = '다음엔 초반 전략부터 다시 세팅해보세요.';
+        } else if (score >= Math.ceil(total / 2)) {
+          summaryMessageEl.textContent = quiz.summary.winMessage;
+          summaryNoteEl.textContent = `총 ${total}라운드 중 ${score}개 성공. 한 번 더 도전하면 완벽에 가까워요.`;
+        } else {
+          summaryMessageEl.textContent = quiz.summary.loseMessage;
+          summaryNoteEl.textContent = `총 ${total}라운드 중 ${score}개 성공. 전략을 재정비하고 다시 도전하세요.`;
+        }
+        if (restartBtn) {
+          restartBtn.classList.remove('hidden');
+        }
+      };
+
+      const handleOption = (cardEl, optionBtn) => {
+        if (cardEl.dataset.locked === 'true') {
+          return;
+        }
+        cardEl.dataset.locked = 'true';
+
+        const isCorrect = optionBtn.dataset.correct === 'true';
+        if (isCorrect) {
+          score += 1;
+        }
+
+        cardEl.querySelectorAll('.quiz-option').forEach((btn) => {
+          btn.disabled = true;
+          if (btn !== optionBtn) {
+            btn.classList.add('quiz-option-disabled');
+          }
+          if (btn.dataset.correct === 'true' && !isCorrect) {
+            btn.classList.add('quiz-option-correct');
+          }
+        });
+
+        optionBtn.classList.add(isCorrect ? 'quiz-option-correct' : 'quiz-option-wrong');
+
+        const badgeEl = cardEl.querySelector('[data-role="result-badge"]');
+        const resultTextEl = cardEl.querySelector('[data-role="result-text"]');
+        const resultFeedbackEl = cardEl.querySelector('[data-role="result-feedback"]');
+        cardEl.querySelector('.quiz-card-inner').classList.add('flipped');
+
+        badgeEl.textContent = isCorrect ? cardEl.dataset.success : cardEl.dataset.failure;
+        badgeEl.classList.remove('result-success', 'result-fail');
+        badgeEl.classList.add(isCorrect ? 'result-success' : 'result-fail');
+        resultTextEl.textContent = optionBtn.textContent.trim();
+        resultFeedbackEl.textContent = optionBtn.dataset.feedback;
+
+        scoreEl.textContent = String(score);
+      };
+
+      const handleNext = (cardEl) => {
+        if (cardEl.dataset.locked !== 'true') {
+          return;
+        }
+        cardEl.classList.remove('active');
+        cardEl.classList.add('completed');
+        current += 1;
+
+        if (current < total) {
+          cards[current].classList.add('active');
+          updateProgress();
+        } else {
+          progressEl.textContent = String(total);
+          showSummary();
+        }
+      };
+
+      cards.forEach((cardEl) => {
+        cardEl.querySelectorAll('.quiz-option').forEach((btn) => {
+          btn.addEventListener('click', () => handleOption(cardEl, btn));
+        });
+        const nextBtn = cardEl.querySelector('[data-next]');
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => handleNext(cardEl));
+        }
+      });
+
+      if (cards[0]) {
+        cards[0].classList.add('active');
+      }
+
+      updateProgress();
+    }
+
+    function buildQuizCardElement(card, index, total) {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'quiz-card';
+      if (index === 0) {
+        cardEl.classList.add('active');
+      }
+      cardEl.dataset.index = String(index);
+      cardEl.dataset.success = card.success;
+      cardEl.dataset.failure = card.failure;
+
+      const inner = document.createElement('div');
+      inner.className = 'quiz-card-inner';
+
+      const front = document.createElement('div');
+      front.className = 'quiz-card-face quiz-card-front';
+
+      const roundBadge = document.createElement('span');
+      roundBadge.className = 'quiz-round';
+      roundBadge.textContent = card.round;
+      front.appendChild(roundBadge);
+
+      const titleEl = document.createElement('h4');
+      titleEl.className = 'text-2xl font-semibold text-slate-100';
+      titleEl.textContent = card.title;
+      front.appendChild(titleEl);
+
+      const promptEl = document.createElement('p');
+      promptEl.className = 'mt-2 text-sm text-slate-200';
+      promptEl.textContent = card.prompt;
+      front.appendChild(promptEl);
+
+      if (card.hint) {
+        const hintEl = document.createElement('p');
+        hintEl.className = 'quiz-hint';
+        hintEl.textContent = card.hint;
+        front.appendChild(hintEl);
+      }
+
+      const optionsWrap = document.createElement('div');
+      optionsWrap.className = 'mt-6 flex flex-col gap-3';
+      shuffleArray(card.options || []).forEach((option) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'quiz-option';
+        btn.dataset.correct = option.isCorrect ? 'true' : 'false';
+        btn.dataset.feedback = option.feedback;
+        btn.textContent = option.label;
+        optionsWrap.appendChild(btn);
+      });
+      front.appendChild(optionsWrap);
+
+      const back = document.createElement('div');
+      back.className = 'quiz-card-face quiz-card-back';
+
+      const badgeEl = document.createElement('div');
+      badgeEl.className = 'result-badge';
+      badgeEl.setAttribute('data-role', 'result-badge');
+      back.appendChild(badgeEl);
+
+      const resultTitle = document.createElement('h5');
+      resultTitle.className = 'text-xl font-semibold text-slate-100';
+      resultTitle.setAttribute('data-role', 'result-text');
+      back.appendChild(resultTitle);
+
+      const feedbackEl = document.createElement('p');
+      feedbackEl.className = 'mt-3 text-sm text-slate-300';
+      feedbackEl.setAttribute('data-role', 'result-feedback');
+      back.appendChild(feedbackEl);
+
+      const nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.className = 'mt-6 inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/10 px-5 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/20';
+      nextBtn.setAttribute('data-next', 'true');
+      nextBtn.textContent = index === total - 1 ? '결과 보기' : '다음 카드';
+      back.appendChild(nextBtn);
+
+      inner.appendChild(front);
+      inner.appendChild(back);
+      cardEl.appendChild(inner);
+      return cardEl;
+    }
+
+    function shuffleArray(arr) {
+      const copy = arr.slice();
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
     }
 
     const urlParams = new URLSearchParams(window.location.search);
